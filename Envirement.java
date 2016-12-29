@@ -5,20 +5,27 @@ public class Envirement {
 	static Board b = new Board();
 
 	public static void main(String[] args) {
-		String nextAction = readNewCommand();
+		/*String nextAction = readNewCommand();
 		while (!nextAction.equals("End")) {
 			nextAction = readNewCommand();
 
-			if (!Interpreter.chceckIfProprerCommand(nextAction)) {
-				System.out.println("Give proper command");
-				continue;
-			}
-			if (Interpreter.ifActionPossible(b, nextAction)) {
-				System.out.println("proper command was given");
-				Act(nextAction);
-			}
-		}
-
+			if (Interpreter.chceckIfProprerCommand(nextAction) || Interpreter.chceckIfProperBoardCreatorCommand(nextAction)) {
+				if (Interpreter.ifActionPossible(b, nextAction)) {
+					System.out.println("proper command was given");
+					Act(nextAction);
+				}
+			} else {
+				/*
+				 * if (Interpreter.chceckIfProprerCondition(nextAction)) {
+				 * System.out.println("proper condition was given"); }else{
+				 * if(Interpreter.chceckIfProprerWhileLoop(nextAction)){
+				 * System.out.println("proper loop was given"); }else{
+				 */
+		Run();	
+		
+		System.out.println("no correct command was given");
+			//}
+		//}
 	}
 
 	/**
@@ -40,24 +47,64 @@ public class Envirement {
 		return s;
 	}
 
-	private static void Act(String functionName) {
-		if (functionName.equals("Move")) {
+	/**
+	 * function that makes action accualy happen
+	 */
+	static void Act(String functionName) {
+		switch (functionName) {
+		case "Move":
 			b.robot.Move();
-		}
-		if (functionName.equals("Put")) {
+			break;
+		case "Put":
 			b.robot.Put();
-		}
-		if (functionName.equals("Take")) {
+			break;
+		case "Take":
 			b.robot.Take();
-		}
-		if (functionName.equals("Turnleft")) {
+			break;
+		case "Turnleft":
 			b.robot.Turnleft();
-		}
-		if (functionName.equals("BoardCreator")) {
+			break;
+		case "BoardCreator":
 			b = createNewBoard();
+			break;
+		case "AddBlock":
+			addBlock();
+			break;
+		case "ShowBoard":
+			b.showBoard();
+			break;
+		case "Run":
+			Run();
+			break;
 		}
 	}
+	
+	static boolean ifConditionIsTrue(String comandName){
+		switch (comandName){
+			case "IsWall":
+				return b.robot.IsWall();
+			case "NOT IsWall":
+				return !b.robot.IsWall();
+			case "IsNorth":
+				return b.robot.IsNorth();
+			case "NOT IsNorth":
+				return !b.robot.IsNorth();
+			case "IsBrick":
+				return b.robot.IsBrick();
+			case "NOT IsBrick":
+				return b.robot.IsBrick();
+				
+		}
+		return false;
+	}
 
+	/**
+	 * creates new board asks for: board dimemention than initial robots x,y,
+	 * load and direction it'll face each partameter is in while loop until
+	 * proper int and and possible to make configuration are given
+	 * 
+	 * @return new board with given configuration parameters
+	 */
 	private static Board createNewBoard() {
 		int dim = 0, x = -1, y = -1, load = -1;
 		char direc = 'N';
@@ -66,19 +113,18 @@ public class Envirement {
 			dim = getInt();
 		}
 		System.out.print("Write x pozytion [0;dimention-1] you would like for your robot to be: ");
-		while(x < 0 || x >= dim){
+		while (x < 0 || x >= dim) {
 			x = getInt();
 			System.out.println(" Try again: ");
-
 		}
 		System.out.print("Write y pozytion [0;dimention-1] you would like for your robot to be: ");
-		while(y < 0 || y >= dim){
+		while (y < 0 || y >= dim) {
 			y = getInt();
 			System.out.println(" Try again: ");
 		}
 		System.out.print("Write direction ['N';'W';'S';'E'] or small letter you would like for your robot to face: ");
-		String pom ="";
-		while(!pom.equals("N") && !pom.equals("W") && !pom.equals("S") && !pom.equals("E")){
+		String pom = "";
+		while (!pom.equals("N") && !pom.equals("W") && !pom.equals("S") && !pom.equals("E")) {
 			System.out.print("That's not a proper char.\n Try again: ");
 			pom = new Scanner(System.in).next();
 			pom.toUpperCase();
@@ -90,6 +136,31 @@ public class Envirement {
 
 	}
 
+	/**
+	 * function that ads block to (x,y) position where x and y are read in loop
+	 * until int possible configuration x and y are given (0 <= x < size of
+	 * board),(0 <= y < size of board)
+	 */
+	private static void addBlock() {
+		int x = -1, y = -1;
+		System.out.print("Write x pozytion of new block: ");
+		while (x < 0 || x >= b.boardSize) {
+			x = getInt();
+			System.out.println(" Try again: ");
+		}
+		System.out.print("Write y pozytion of new block: ");
+		while (y < 0 || y >= b.boardSize) {
+			y = getInt();
+			System.out.println(" Try again: ");
+		}
+		b.addBlock(x, y);
+	}
+
+	/**
+	 * function reads from console until correct int is given
+	 * 
+	 * @return int from console
+	 */
 	static int getInt() {
 		while (true) {
 			try {
@@ -100,5 +171,19 @@ public class Envirement {
 		}
 	}
 
+	static void Run() {
+		Program p = new Program();
+		if (p.readFileToProg("prog1.txt")) {
+			System.out.println(p.program);
+			if(p.compile() < 0){
+				p.run();
+			}else{
+				System.out.println("Compilation fail on line:" + p.compile());
+			}
+		} else {
+			System.out.println("wrong file directory");
+		}
+		
+	}
 
 }

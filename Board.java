@@ -5,11 +5,20 @@ public class Board {
 	int boardSize;
 
 	/**
-	 *            Constructor that creates board
-	 *            places robot on it: 
+	 * extended constructor used when user sets its own board
+	 * 
 	 * @param dimentionOfBoard
+	 *            - sets how long squere board side is
+	 * @param rPozX
+	 *            - robot's horizontal initial poztion
+	 * @param rPozY
+	 *            - robot's vertical initial position
+	 * @param blocksOnTruck
+	 *            - how many blocks are initaily in robot's container
+	 * @param roboFaceDirection
+	 *            initial direction where robot faces
 	 */
-	public Board(int dimentionOfBoard, int rPozX, int rPozY, int blocksOnTruck, char roboFaceDirection) {
+	Board(int dimentionOfBoard, int rPozX, int rPozY, int blocksOnTruck, char roboFaceDirection) {
 		if (dimentionOfBoard > 0) {
 			boardSize = dimentionOfBoard;
 			boardOFBlocks = new int[dimentionOfBoard][dimentionOfBoard];
@@ -29,12 +38,33 @@ public class Board {
 			throw new RuntimeException("You can't place robot out of board.");
 		}
 	}
+
 	/**
-	 * default constructor for impatient creates 10 by 10 board and places robot on field (5,5) facing north
+	 * default constructor for impatient creates 10 by 10 board and places robot
+	 * on field (5,5) facing north
 	 */
-	public Board() {
-		this(10,5,5,1,'N');
+	Board() {
+		this(10, 6, 4, 1, 'N');
 	}
 
-	
+	void addBlock(int x, int y) {
+		boardOFBlocks[x][y]++;
+	}
+
+	boolean takeBlock(int x, int y) {
+		if (boardOFBlocks[x][y] > 0) {
+			boardOFBlocks[x][y]--;
+			return true;
+		}
+		return false;
+	}
+
+	void showBoard() {
+		for (int i = 0; i < boardSize; i++) {
+			System.out.print("\n");
+			for (int j = 0; j < boardSize; j++) {
+				System.out.print(boardOFBlocks[j][i] + "	");
+			}
+		}
+	}
 }
