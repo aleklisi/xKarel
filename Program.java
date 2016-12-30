@@ -23,8 +23,7 @@ public class Program {
 	 * @return true if file was correctly read if there were any prblems returns
 	 *         false
 	 */
-	boolean readFileToProg(String filename) {
-		File f = new File(filename);
+	boolean readFileToProg(File f) {
 		String line;
 		try {
 			InputStream fis = new FileInputStream(f);
@@ -56,15 +55,30 @@ public class Program {
 			}
 			if (Interpreter.chceckIfProprerCondition(program.get(i))) {
 				if (!conditionHandler(i)) {
-					System.out.println("conditionHandler()" + i);
+					System.out.println("conditionHandler(" + i + ")");
 					return i;
 				} else {
 					continue;
 				}
+			}
+			if (Interpreter.chceckIfProprerWhileLoop(program.get(i))) {
+
+				int newBracket = findFittingBracket(i) - 1;
+				program.set(i, program.get(i).replaceAll("While", "").replaceAll("\\s+", ""));
+				if (!conditionHandler(i)) {
+					System.out.println("conditionHandler(" + i + ") while problem");
+					return i;
+				} else {
+					Integer j = i;
+					program.set(newBracket, j.toString());
+					continue;
+				}
+
 			} else {
 				return i;
 			}
 		}
+		System.out.println("Compilation Succeded :D");
 		return -1;
 	}
 
@@ -73,7 +87,7 @@ public class Program {
 		int wynik = i + 2;
 		int programLength = program.toArray().length;
 		while (bracketCounter > 0) {
-			if (program.get(wynik).equals("{")) {
+			if (program.get(wynik).equals("{") || isInt(program.get(wynik))) {
 				bracketCounter++;
 			}
 			if (program.get(wynik).equals("}")) {
@@ -84,7 +98,7 @@ public class Program {
 			}
 			wynik++;
 		}
-		return --wynik;
+		return wynik;
 	}
 
 	boolean conditionHandler(int i) {
@@ -101,20 +115,32 @@ public class Program {
 		cout();
 		int programLength = program.toArray().length;
 		for (int i = 0; i < programLength; i++) {
-
+			System.out.println(i);
 			if (program.get(i).equals("{") || program.get(i).equals("}")) {
 				continue;
 			}
 			if (Interpreter.chceckIfProprerCondition(program.get(i))) {
-				if (!Envirement.ifConditionIsTrue(program.get(i))) {
+				if (Envirement.ifConditionIsTrue(program.get(i))) {
 					i++;
+					System.out.println("condition on line:" + i + " is true.");
+				}else{
+					System.out.println("condition on line:" + i + " is false.");
 				}
 				continue;
 			}
 			if (isInt(program.get(i))) {
-				i = Integer.parseInt(program.get(i));
-				System.out.println(i);
-				if (i >= programLength || i < 0) {
+				System.out.println("Jump form line: " + i + "to: " + program.get(i));
+				int pomi = Integer.parseInt(program.get(i));
+				if(pomi < i){
+					i = pomi - 1;
+				}
+				//System.out.println("Jump form line: " + i + "to: " + program.get(i));
+
+				/*if(i == programLength){
+					System.out.println("program has finished its Action");
+					break;
+				}*/
+				if (i > programLength || i < -1) {
 					System.out.println("program cant be executed. Brackets problem.");
 					break;
 				}

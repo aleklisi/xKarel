@@ -1,7 +1,7 @@
 
 public class Interpreter {
 	final static String[] possibleCommends = {"Run","Move", "Put", "Take", "Turnleft", "End","ShowBoard"};
-	final static String[] possibleConditions = { "IsNorth","IsWall","IsBrick", "NOT IsNorth","NOT IsWall","NOT IsBrick" };
+	final static String[] possibleConditions = { "IsNorth","IsWall","IsBrick", "NOTIsNorth","NOTIsWall","NOTIsBrick" };
 	final static String[] boardCreatorCommends = {"BoardCreator", "AddBlock"};
 
 	static boolean chceckIfProprerCommand(String command) {

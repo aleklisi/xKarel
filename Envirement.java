@@ -2,12 +2,13 @@ import java.io.*;
 import java.util.*;
 
 public class Envirement {
+	
 	static Board b = new Board();
 
 	public static void main(String[] args) {
-		/*String nextAction = readNewCommand();
+		String nextAction = readNewCommand();
 		while (!nextAction.equals("End")) {
-			nextAction = readNewCommand();
+			nextAction = readNewCommand().replaceAll("\\s+","");
 
 			if (Interpreter.chceckIfProprerCommand(nextAction) || Interpreter.chceckIfProperBoardCreatorCommand(nextAction)) {
 				if (Interpreter.ifActionPossible(b, nextAction)) {
@@ -21,11 +22,11 @@ public class Envirement {
 				 * if(Interpreter.chceckIfProprerWhileLoop(nextAction)){
 				 * System.out.println("proper loop was given"); }else{
 				 */
-		Run();	
+		//Run();	
 		
 		System.out.println("no correct command was given");
-			//}
-		//}
+			}
+		}
 	}
 
 	/**
@@ -39,7 +40,7 @@ public class Envirement {
 		// System.out.print("Enter new command:");
 		try {
 			s = br.readLine();
-			System.out.print(s);
+			//System.out.print(s);
 			// System.out.println(Interpreter.chceckIfProprerCommand(s));
 		} catch (IOException e) {
 			e = new IOException("Can't read new command.");
@@ -83,15 +84,15 @@ public class Envirement {
 		switch (comandName){
 			case "IsWall":
 				return b.robot.IsWall();
-			case "NOT IsWall":
+			case "NOTIsWall":
 				return !b.robot.IsWall();
 			case "IsNorth":
 				return b.robot.IsNorth();
-			case "NOT IsNorth":
+			case "NOTIsNorth":
 				return !b.robot.IsNorth();
 			case "IsBrick":
 				return b.robot.IsBrick();
-			case "NOT IsBrick":
+			case "NOTIsBrick":
 				return b.robot.IsBrick();
 				
 		}
@@ -172,8 +173,18 @@ public class Envirement {
 	}
 
 	static void Run() {
+		
 		Program p = new Program();
-		if (p.readFileToProg("prog1.txt")) {
+		File f;
+		while(true){
+		try{
+			f = new File(readNewCommand());
+			break;
+		}catch(Exception e){
+			System.out.println("Wrong file name try again.");
+		}			
+		}
+		if (p.readFileToProg(f)) {
 			System.out.println(p.program);
 			if(p.compile() < 0){
 				p.run();
@@ -183,7 +194,6 @@ public class Envirement {
 		} else {
 			System.out.println("wrong file directory");
 		}
-		
 	}
 
 }
