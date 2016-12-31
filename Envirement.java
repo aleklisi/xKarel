@@ -2,15 +2,16 @@ import java.io.*;
 import java.util.*;
 
 public class Envirement {
-	
+
 	static Board b = new Board();
 
 	public static void main(String[] args) {
 		String nextAction = readNewCommand();
 		while (!nextAction.equals("End")) {
-			nextAction = readNewCommand().replaceAll("\\s+","");
+			nextAction = readNewCommand().replaceAll("\\s+", "");
 
-			if (Interpreter.chceckIfProprerCommand(nextAction) || Interpreter.chceckIfProperBoardCreatorCommand(nextAction)) {
+			if (Interpreter.chceckIfProprerCommand(nextAction)
+					|| Interpreter.chceckIfProperBoardCreatorCommand(nextAction)) {
 				if (Interpreter.ifActionPossible(b, nextAction)) {
 					System.out.println("proper command was given");
 					Act(nextAction);
@@ -22,9 +23,9 @@ public class Envirement {
 				 * if(Interpreter.chceckIfProprerWhileLoop(nextAction)){
 				 * System.out.println("proper loop was given"); }else{
 				 */
-		//Run();	
-		
-		System.out.println("no correct command was given");
+				// Run();
+
+				System.out.println("no correct command was given");
 			}
 		}
 	}
@@ -40,7 +41,7 @@ public class Envirement {
 		// System.out.print("Enter new command:");
 		try {
 			s = br.readLine();
-			//System.out.print(s);
+			// System.out.print(s);
 			// System.out.println(Interpreter.chceckIfProprerCommand(s));
 		} catch (IOException e) {
 			e = new IOException("Can't read new command.");
@@ -79,22 +80,22 @@ public class Envirement {
 			break;
 		}
 	}
-	
-	static boolean ifConditionIsTrue(String comandName){
-		switch (comandName){
-			case "IsWall":
-				return b.robot.IsWall();
-			case "NOTIsWall":
-				return !b.robot.IsWall();
-			case "IsNorth":
-				return b.robot.IsNorth();
-			case "NOTIsNorth":
-				return !b.robot.IsNorth();
-			case "IsBrick":
-				return b.robot.IsBrick();
-			case "NOTIsBrick":
-				return b.robot.IsBrick();
-				
+
+	static boolean ifConditionIsTrue(String comandName) {
+		switch (comandName) {
+		case "IsWall":
+			return b.robot.IsWall();
+		case "NOTIsWall":
+			return !b.robot.IsWall();
+		case "IsNorth":
+			return b.robot.IsNorth();
+		case "NOTIsNorth":
+			return !b.robot.IsNorth();
+		case "IsBrick":
+			return b.robot.IsBrick();
+		case "NOTIsBrick":
+			return b.robot.IsBrick();
+
 		}
 		return false;
 	}
@@ -171,29 +172,63 @@ public class Envirement {
 			}
 		}
 	}
-
-	static void Run() {
-		
-		Program p = new Program();
-		File f;
-		while(true){
-		try{
-			f = new File(readNewCommand());
-			break;
-		}catch(Exception e){
-			System.out.println("Wrong file name try again.");
-		}			
+	static void Run(){
+		System.out.print("Enter Run");
+		Program p = new Program("prog1");
+		if(p.compileProg()){
+			System.out.println("Compiled");
+			p.runProg();
 		}
+		
+	}
+	
+	
+	
+	
+	
+/*
+	static void Run() {
+		File f;
+		String progName;
+		while (true) {
+			try {
+				progName = readNewCommand();
+				f = new File(progName + "/main.txt");
+				Run(progName);
+			} catch (Exception e) {
+				System.out.println("Wrong file name try again.");
+
+			}
+
+		}
+	}*/
+
+/*	static boolean Run(String procedName) {
+
+		Proced p = new Proced();
+		File f;
+		try {
+			f = new File(procedName);
+
+		} catch (Exception e) {
+			System.out.println("Wrong file name try again.");
+			return false;
+		}
+
 		if (p.readFileToProg(f)) {
-			System.out.println(p.program);
-			if(p.compile() < 0){
+			//System.out.println(p.proced);
+			if (p.compile() < 0) {
 				p.run();
-			}else{
+				return true;
+			} else {
 				System.out.println("Compilation fail on line:" + p.compile());
+				return false;
 			}
 		} else {
 			System.out.println("wrong file directory");
+			return false;
 		}
 	}
+	*/
 
 }

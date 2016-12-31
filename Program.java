@@ -1,179 +1,66 @@
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Program {
-	List<String> program;
+	String programName;
+	List<Proced> programProcedures;
 
-	Program() {
-		program = new ArrayList<String>();
-
+	Program(String progName) {
+		programName = progName;
+		programProcedures = getAllProceds();
 	}
 
-	/**
-	 * read's file line by line
-	 * 
-	 * @param filename
-	 *            - file name or location
-	 * @return true if file was correctly read if there were any prblems returns
-	 *         false
-	 */
-	boolean readFileToProg(File f) {
-		String line;
-		try {
-			InputStream fis = new FileInputStream(f);
-			InputStreamReader isr = new InputStreamReader(fis, Charset.forName("UTF-8"));
-			BufferedReader br = new BufferedReader(isr);
-			while ((line = br.readLine()) != null) {
-				program.add(line);
-			}
-			br.close();
-		} catch (Exception e) {
-			System.out.println("File doesn't exist!");
-			return false;
-		}
-		return true;
-	}
-
-	int compile() {
-		if (program.isEmpty()) {
-			System.out.println("Program is Empty - has 0 code lines in it!");
-			return 0;
-		}
-		int programLength = program.toArray().length;
-		for (int i = 0; i < programLength; i++) {
-			if (isInt(program.get(i)) || program.get(i).equals("{") || program.get(i).equals("}")) {
-				continue;
-			}
-			if (Interpreter.chceckIfProprerCommand(program.get(i))) {
-				continue;
-			}
-			if (Interpreter.chceckIfProprerCondition(program.get(i))) {
-				if (!conditionHandler(i)) {
-					System.out.println("conditionHandler(" + i + ")");
-					return i;
-				} else {
-					continue;
+	List<Proced> getAllProceds() {
+		List<Proced> allProceds = new ArrayList<Proced>();
+		File folder = new File(programName);
+		Proced corrProc;
+		File[] listOfFiles = folder.listFiles();
+		for (int i = 0; i < listOfFiles.length; i++) {
+			if (listOfFiles[i].isFile()) {
+				if (listOfFiles[i].getName().endsWith(".txt")) {
+					corrProc = new Proced(listOfFiles[i], this);
+					allProceds.add(corrProc);
+					
+					System.out.println(listOfFiles[i].getName() + " Proced added.");
 				}
 			}
-			if (Interpreter.chceckIfProprerWhileLoop(program.get(i))) {
-
-				int newBracket = findFittingBracket(i) - 1;
-				program.set(i, program.get(i).replaceAll("While", "").replaceAll("\\s+", ""));
-				if (!conditionHandler(i)) {
-					System.out.println("conditionHandler(" + i + ") while problem");
-					return i;
-				} else {
-					Integer j = i;
-					program.set(newBracket, j.toString());
-					continue;
-				}
-
-			} else {
-				return i;
-			}
 		}
-		System.out.println("Compilation Succeded :D");
-		return -1;
+		System.out.println(allProceds);
+		return allProceds;
 	}
 
-	Integer findFittingBracket(int i) {
-		int bracketCounter = 1;
-		int wynik = i + 2;
-		int programLength = program.toArray().length;
-		while (bracketCounter > 0) {
-			if (program.get(wynik).equals("{") || isInt(program.get(wynik))) {
-				bracketCounter++;
-			}
-			if (program.get(wynik).equals("}")) {
-				bracketCounter--;
-			}
-			if (wynik >= programLength) {
-				return -1;
-			}
-			wynik++;
-		}
-		return wynik;
-	}
-
-	boolean conditionHandler(int i) {
-		if (program.get(i + 1).equals("{")) {
-			if (findFittingBracket(i + 1) != -1) {
-				program.set(i + 1, findFittingBracket(i).toString());
+	boolean contains(String shearchedProcName) {
+		for (Proced p : programProcedures) {
+			if (p.procedName.equals(shearchedProcName)) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	void run() {
-		cout();
-		int programLength = program.toArray().length;
-		for (int i = 0; i < programLength; i++) {
-			System.out.println(i);
-			if (program.get(i).equals("{") || program.get(i).equals("}")) {
-				continue;
+	Proced getProcedByName(String shearchedProcName) {
+		for (Proced p : programProcedures) {
+			if (p.procedName.equals(shearchedProcName)) {
+				return p;
 			}
-			if (Interpreter.chceckIfProprerCondition(program.get(i))) {
-				if (Envirement.ifConditionIsTrue(program.get(i))) {
-					i++;
-					System.out.println("condition on line:" + i + " is true.");
-				}else{
-					System.out.println("condition on line:" + i + " is false.");
-				}
-				continue;
-			}
-			if (isInt(program.get(i))) {
-				System.out.println("Jump form line: " + i + "to: " + program.get(i));
-				int pomi = Integer.parseInt(program.get(i));
-				if(pomi < i){
-					i = pomi - 1;
-				}
-				//System.out.println("Jump form line: " + i + "to: " + program.get(i));
-
-				/*if(i == programLength){
-					System.out.println("program has finished its Action");
-					break;
-				}*/
-				if (i > programLength || i < -1) {
-					System.out.println("program cant be executed. Brackets problem.");
-					break;
-				}
-				continue;
-			}
-			if (Interpreter.ifActionPossible(Envirement.b, program.get(i))) {
-				Envirement.Act(program.get(i));
-				continue;
-			} else {
-				System.out.println("program cant be executed. Error in line: " + i);
-				break;
-			}
-
 		}
+		return null;
 	}
 
-	void cout() {
-		int programLength = program.toArray().length;
-		for (int i = 0; i < programLength; i++) {
-			System.out.println(i + "	" + program.get(i));
-		}
+	void runProg() {
+		getProcedByName("main").run();
 	}
 
-	public static boolean isInt(String s) {
-		try {
-			Integer.parseInt(s);
-		} catch (NumberFormatException e) {
-			return false;
-		} catch (NullPointerException e) {
-			return false;
+	boolean compileProg() {
+		System.out.println("Program entered compileProg." + programProcedures.toArray().length);
+		for (int i = 0; i < programProcedures.size(); i++) {
+			if (programProcedures.get(i).compileProc() > -1) {
+				System.out.println("Problem in procedure: " + programProcedures.get(i).procedName);
+			//	return false;
+			}
 		}
-		// only got here if we didn't return false
+		System.out.println("Program is compiled correctly :D");
 		return true;
 	}
-
 }

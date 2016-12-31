@@ -26,7 +26,7 @@ class Robot {
 		}
 		robotPozX = x;
 		robotPozY = y;
-		blocksOnTruck = 6;
+		blocksOnTruck = 10;
 		direction = 'N';
 		this.outer = outer;
 	}

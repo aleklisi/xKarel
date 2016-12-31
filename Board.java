@@ -66,5 +66,9 @@ public class Board {
 				System.out.print(boardOFBlocks[j][i] + "	");
 			}
 		}
+		System.out.println(" ");
+		robot.allInfo();
+		System.out.println(" ");
+
 	}
 }
