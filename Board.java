@@ -61,14 +61,14 @@ public class Board {
 
 	void showBoard() {
 		for (int i = 0; i < boardSize; i++) {
-			System.out.print("\n");
+			Envirement.add("\n");
 			for (int j = 0; j < boardSize; j++) {
-				System.out.print(boardOFBlocks[j][i] + "	");
+				Envirement.add(boardOFBlocks[j][i] + "	");
 			}
 		}
-		System.out.println(" ");
+		Envirement.add(" ");
 		robot.allInfo();
-		System.out.println(" ");
+		Envirement.add(" ");
 
 	}
 }

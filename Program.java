@@ -22,11 +22,11 @@ public class Program {
 					corrProc = new Proced(listOfFiles[i], this);
 					allProceds.add(corrProc);
 					
-					System.out.println(listOfFiles[i].getName() + " Proced added.");
+					Envirement.add(listOfFiles[i].getName() + " Proced added.");
 				}
 			}
 		}
-		System.out.println(allProceds);
+		Envirement.add(allProceds+"");
 		return allProceds;
 	}
 
@@ -53,14 +53,14 @@ public class Program {
 	}
 
 	boolean compileProg() {
-		System.out.println("Program entered compileProg." + programProcedures.toArray().length);
+		Envirement.add("Program entered compileProg." + programProcedures.toArray().length);
 		for (int i = 0; i < programProcedures.size(); i++) {
 			if (programProcedures.get(i).compileProc() > -1) {
-				System.out.println("Problem in procedure: " + programProcedures.get(i).procedName);
+				Envirement.add("Problem in procedure: " + programProcedures.get(i).procedName);
 			//	return false;
 			}
 		}
-		System.out.println("Program is compiled correctly :D");
+		Envirement.add("Program is compiled correctly :D");
 		return true;
 	}
 }

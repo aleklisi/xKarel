@@ -4,29 +4,40 @@ import java.util.*;
 public class Envirement {
 
 	static Board b = new Board();
+	static String consoleOutput = "";
+	/*
+	 * public static void main(String[] args) { String nextAction =
+	 * readNewCommand(); while (!nextAction.equals("End")) { nextAction =
+	 * readNewCommand().replaceAll("\\s+", "");
+	 * 
+	 * if (Interpreter.chceckIfProprerCommand(nextAction) ||
+	 * Interpreter.chceckIfProperBoardCreatorCommand(nextAction)) { if
+	 * (Interpreter.ifActionPossible(b, nextAction)) {
+	 * Envirement.add("proper command was given"); Act(nextAction); } } else {
+	 * /* if (Interpreter.chceckIfProprerCondition(nextAction)) {
+	 * Envirement.add("proper condition was given"); }else{
+	 * if(Interpreter.chceckIfProprerWhileLoop(nextAction)){
+	 * Envirement.add("proper loop was given"); }else{
+	 */
+	// Run();
 
-	public static void main(String[] args) {
-		String nextAction = readNewCommand();
-		while (!nextAction.equals("End")) {
-			nextAction = readNewCommand().replaceAll("\\s+", "");
+	/*
+	 * Envirement.add("no correct command was given"); } } }
+	 */
 
-			if (Interpreter.chceckIfProprerCommand(nextAction)
-					|| Interpreter.chceckIfProperBoardCreatorCommand(nextAction)) {
-				if (Interpreter.ifActionPossible(b, nextAction)) {
-					System.out.println("proper command was given");
-					Act(nextAction);
-				}
-			} else {
-				/*
-				 * if (Interpreter.chceckIfProprerCondition(nextAction)) {
-				 * System.out.println("proper condition was given"); }else{
-				 * if(Interpreter.chceckIfProprerWhileLoop(nextAction)){
-				 * System.out.println("proper loop was given"); }else{
-				 */
-				// Run();
+	static void add(String s) {
+		consoleOutput += s;
+	}
 
-				System.out.println("no correct command was given");
+	static void action(String nextAction) {
+		if (Interpreter.chceckIfProprerCommand(nextAction)
+				|| Interpreter.chceckIfProperBoardCreatorCommand(nextAction)) {
+			if (Interpreter.ifActionPossible(b, nextAction)) {
+				Envirement.add("proper command was given");
+				act(nextAction);
 			}
+		} else {
+			Envirement.add("not correct command was given");
 		}
 	}
 
@@ -38,11 +49,11 @@ public class Envirement {
 	private static String readNewCommand() {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		String s = "";
-		// System.out.print("Enter new command:");
+		// Envirement.add("Enter new command:");
 		try {
 			s = br.readLine();
-			// System.out.print(s);
-			// System.out.println(Interpreter.chceckIfProprerCommand(s));
+			// Envirement.add(s);
+			// Envirement.add(Interpreter.chceckIfProprerCommand(s));
 		} catch (IOException e) {
 			e = new IOException("Can't read new command.");
 		}
@@ -52,7 +63,7 @@ public class Envirement {
 	/**
 	 * function that makes action accualy happen
 	 */
-	static void Act(String functionName) {
+	static void act(String functionName) {
 		switch (functionName) {
 		case "Move":
 			b.robot.Move();
@@ -110,30 +121,30 @@ public class Envirement {
 	private static Board createNewBoard() {
 		int dim = 0, x = -1, y = -1, load = -1;
 		char direc = 'N';
-		System.out.print("Write dimetion you would like for your board to have: ");
+		Envirement.add("Write dimetion you would like for your board to have: ");
 		while (dim <= 0) {
 			dim = getInt();
 		}
-		System.out.print("Write x pozytion [0;dimention-1] you would like for your robot to be: ");
+		Envirement.add("Write x pozytion [0;dimention-1] you would like for your robot to be: ");
 		while (x < 0 || x >= dim) {
 			x = getInt();
-			System.out.println(" Try again: ");
+			Envirement.add(" Try again: ");
 		}
-		System.out.print("Write y pozytion [0;dimention-1] you would like for your robot to be: ");
+		Envirement.add("Write y pozytion [0;dimention-1] you would like for your robot to be: ");
 		while (y < 0 || y >= dim) {
 			y = getInt();
-			System.out.println(" Try again: ");
+			Envirement.add(" Try again: ");
 		}
-		System.out.print("Write direction ['N';'W';'S';'E'] or small letter you would like for your robot to face: ");
+		Envirement.add("Write direction ['N';'W';'S';'E'] or small letter you would like for your robot to face: ");
 		String pom = "";
 		while (!pom.equals("N") && !pom.equals("W") && !pom.equals("S") && !pom.equals("E")) {
-			System.out.print("That's not a proper char.\n Try again: ");
+			Envirement.add("That's not a proper char.\n Try again: ");
 			pom = new Scanner(System.in).next();
 			pom.toUpperCase();
 		}
 		direc = pom.charAt(0);
 		b = new Board(dim, x, y, load, direc);
-		System.out.print("Board propreli crated:)");
+		Envirement.add("Board propreli crated:)");
 		return b;
 
 	}
@@ -145,15 +156,15 @@ public class Envirement {
 	 */
 	private static void addBlock() {
 		int x = -1, y = -1;
-		System.out.print("Write x pozytion of new block: ");
+		Envirement.add("Write x pozytion of new block: ");
 		while (x < 0 || x >= b.boardSize) {
 			x = getInt();
-			System.out.println(" Try again: ");
+			Envirement.add(" Try again: ");
 		}
-		System.out.print("Write y pozytion of new block: ");
+		Envirement.add("Write y pozytion of new block: ");
 		while (y < 0 || y >= b.boardSize) {
 			y = getInt();
-			System.out.println(" Try again: ");
+			Envirement.add(" Try again: ");
 		}
 		b.addBlock(x, y);
 	}
@@ -168,67 +179,45 @@ public class Envirement {
 			try {
 				return Integer.parseInt(new Scanner(System.in).next());
 			} catch (NumberFormatException e) {
-				System.out.print("That's not a proper int.\n Try again: ");
+				Envirement.add("That's not a proper int.\n Try again: ");
 			}
 		}
 	}
-	static void Run(){
-		System.out.print("Enter Run");
+
+	static void Run() {
+		Envirement.add("Enter Run");
+		
 		Program p = new Program("progr");
-		if(p.compileProg()){
-			System.out.println("Compiled");
+		if (p.compileProg()) {
+			Envirement.add("Compiled");
 			p.runProg();
 		}
-		
+
 	}
-	
-	
-	
-	
-	
-/*
-	static void Run() {
-		File f;
-		String progName;
-		while (true) {
-			try {
-				progName = readNewCommand();
-				f = new File(progName + "/main.txt");
-				Run(progName);
-			} catch (Exception e) {
-				System.out.println("Wrong file name try again.");
 
-			}
+	/*
+	 * static void Run() { File f; String progName; while (true) { try {
+	 * progName = readNewCommand(); f = new File(progName + "/main.txt");
+	 * Run(progName); } catch (Exception e) {
+	 * Envirement.add("Wrong file name try again.");
+	 * 
+	 * }
+	 * 
+	 * } }
+	 */
 
-		}
-	}*/
-
-/*	static boolean Run(String procedName) {
-
-		Proced p = new Proced();
-		File f;
-		try {
-			f = new File(procedName);
-
-		} catch (Exception e) {
-			System.out.println("Wrong file name try again.");
-			return false;
-		}
-
-		if (p.readFileToProg(f)) {
-			//System.out.println(p.proced);
-			if (p.compile() < 0) {
-				p.run();
-				return true;
-			} else {
-				System.out.println("Compilation fail on line:" + p.compile());
-				return false;
-			}
-		} else {
-			System.out.println("wrong file directory");
-			return false;
-		}
-	}
-	*/
+	/*
+	 * static boolean Run(String procedName) {
+	 * 
+	 * Proced p = new Proced(); File f; try { f = new File(procedName);
+	 * 
+	 * } catch (Exception e) { Envirement.add("Wrong file name try again.");
+	 * return false; }
+	 * 
+	 * if (p.readFileToProg(f)) { //Envirement.add(p.proced); if (p.compile() <
+	 * 0) { p.run(); return true; } else {
+	 * Envirement.add("Compilation fail on line:" + p.compile()); return false;
+	 * } } else { Envirement.add("wrong file directory"); return false; } }
+	 */
 
 }

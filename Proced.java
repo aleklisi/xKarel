@@ -43,7 +43,7 @@ public class Proced {
 			}
 			br.close();
 		} catch (Exception e) {
-			System.out.println("File doesn't exist!");
+			Envirement.add("File doesn't exist!");
 			return false;
 		}
 		return true;
@@ -51,7 +51,7 @@ public class Proced {
 
 	int compileProc() {
 		if (proced.isEmpty()) {
-			System.out.println("Proced is Empty - has 0 code lines in it!");
+			Envirement.add("Proced is Empty - has 0 code lines in it!");
 			return 0;
 		}
 		int ProcedLength = proced.toArray().length;
@@ -64,7 +64,7 @@ public class Proced {
 			}
 			if (Interpreter.chceckIfProprerCondition(proced.get(i))) {
 				if (!conditionHandler(i)) {
-					System.out.println("conditionHandler(" + i + ")");
+					Envirement.add("conditionHandler(" + i + ")");
 					return i;
 				} else {
 					continue;
@@ -78,7 +78,7 @@ public class Proced {
 				}
 				proced.set(i, proced.get(i).replaceAll("While", "").replaceAll("\\s+", ""));
 				if (!conditionHandler(i)) {
-					System.out.println("conditionHandler(" + i + ") while problem");
+					Envirement.add("conditionHandler(" + i + ") while problem");
 					return i;
 				} else {
 					Integer j = i;
@@ -92,7 +92,7 @@ public class Proced {
 				return i;
 			}
 		}
-		System.out.println("Compilation Succeded :D");
+		Envirement.add("Compilation Ended.");
 		return -1;
 
 	}
@@ -102,7 +102,7 @@ public class Proced {
 		int wynik = i + 2;
 		int ProcedLength = proced.toArray().length;
 		while (bracketCounter > 0) {
-			System.out.println(wynik);
+			Envirement.add(wynik +"");
 			if (proced.get(wynik).equals("{") || isInt(proced.get(wynik))) {
 				bracketCounter++;
 			}
@@ -120,7 +120,7 @@ public class Proced {
 	boolean conditionHandler(int i) {
 		if (proced.get(i + 1).equals("{")) {
 			if(proced.get(i+2).equals("}")){
-				System.out.println("Codition changes nothing, becouse it is empty.");
+				Envirement.add("Codition changes nothing, becouse it is empty.");
 				return false;
 			}
 			if (findFittingBracket(i + 1) != -1) {
@@ -136,7 +136,7 @@ public class Proced {
 		cout();
 		int ProcedLength = proced.toArray().length;
 		for (int i = 0; i < ProcedLength; i++) {
-			System.out.println(i);
+			Envirement.add(i+"");
 			if (proced.get(i).equals("{") || proced.get(i).equals("}")) {
 				continue;
 			}
@@ -147,14 +147,14 @@ public class Proced {
 			if (Interpreter.chceckIfProprerCondition(proced.get(i))) {
 				if (Envirement.ifConditionIsTrue(proced.get(i))) {
 					i++;
-					System.out.println("condition on line:" + i + " is true.");
+					Envirement.add("condition on line:" + i + " is true.");
 				} else {
-					System.out.println("condition on line:" + i + " is false.");
+					Envirement.add("condition on line:" + i + " is false.");
 				}
 				continue;
 			}
 			if (isInt(proced.get(i))) {
-				System.out.println("Jump form line: " + i + "to: " + proced.get(i));
+				Envirement.add("Jump form line: " + i + "to: " + proced.get(i));
 				int pomi = Integer.parseInt(proced.get(i));
 				if (pomi < i) {
 					i = pomi - 1;
@@ -162,17 +162,17 @@ public class Proced {
 					i = pomi;
 				}
 				if (i >= ProcedLength || i < -1) {
-					System.out.println("Proced cant be executed. Brackets problem.");
+					Envirement.add("Proced cant be executed. Brackets problem.");
 					break;
 				}
 				continue;
 			}
 			
 			if (Interpreter.ifActionPossible(Envirement.b, proced.get(i))) {
-				Envirement.Act(proced.get(i));
+				Envirement.act(proced.get(i));
 				continue;
 			} else {
-				System.out.println("Proced cant be executed. Error in line: " + i + "in procedure: " + procedName);
+				Envirement.add("Proced cant be executed. Error in line: " + i + "in procedure: " + procedName);
 				break;
 			}
 
@@ -182,7 +182,7 @@ public class Proced {
 	void cout() {
 		int ProcedLength = proced.toArray().length;
 		for (int i = 0; i < ProcedLength; i++) {
-			System.out.println(i + "	" + proced.get(i));
+			Envirement.add(i + "	" + proced.get(i));
 		}
 	}
 
