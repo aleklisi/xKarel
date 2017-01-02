@@ -53,14 +53,14 @@ public class Program {
 	}
 
 	boolean compileProg() {
-		Envirement.add("Program entered compileProg." + programProcedures.toArray().length);
+		Envirement.add("Program entered compileProg.\n" + programProcedures.toArray().length);
 		for (int i = 0; i < programProcedures.size(); i++) {
 			if (programProcedures.get(i).compileProc() > -1) {
-				Envirement.add("Problem in procedure: " + programProcedures.get(i).procedName);
+				Envirement.add("Problem in procedure: " + programProcedures.get(i).procedName + "\n");
 			//	return false;
 			}
 		}
-		Envirement.add("Program is compiled correctly :D");
+		Envirement.add("Program is compiled correctly :D\n");
 		return true;
 	}
 }

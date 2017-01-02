@@ -5,6 +5,7 @@ public class Envirement {
 
 	static Board b = new Board();
 	static String consoleOutput = "";
+	
 	/*
 	 * public static void main(String[] args) { String nextAction =
 	 * readNewCommand(); while (!nextAction.equals("End")) { nextAction =
@@ -33,11 +34,11 @@ public class Envirement {
 		if (Interpreter.chceckIfProprerCommand(nextAction)
 				|| Interpreter.chceckIfProperBoardCreatorCommand(nextAction)) {
 			if (Interpreter.ifActionPossible(b, nextAction)) {
-				Envirement.add("proper command was given");
+				Envirement.add("proper command was given\n");
 				act(nextAction);
 			}
 		} else {
-			Envirement.add("not correct command was given");
+			Envirement.add("not correct command was given\n");
 		}
 	}
 
@@ -86,9 +87,9 @@ public class Envirement {
 		case "ShowBoard":
 			b.showBoard();
 			break;
-		case "Run":
+		/*case "Run":
 			Run();
-			break;
+			break;*/
 		}
 	}
 
@@ -121,30 +122,30 @@ public class Envirement {
 	private static Board createNewBoard() {
 		int dim = 0, x = -1, y = -1, load = -1;
 		char direc = 'N';
-		Envirement.add("Write dimetion you would like for your board to have: ");
+		Envirement.add("Write dimetion you would like for your board to have: \n");
 		while (dim <= 0) {
 			dim = getInt();
 		}
-		Envirement.add("Write x pozytion [0;dimention-1] you would like for your robot to be: ");
+		Envirement.add("Write x pozytion [0;dimention-1] you would like for your robot to be:\n ");
 		while (x < 0 || x >= dim) {
 			x = getInt();
 			Envirement.add(" Try again: ");
 		}
-		Envirement.add("Write y pozytion [0;dimention-1] you would like for your robot to be: ");
+		Envirement.add("Write y pozytion [0;dimention-1] you would like for your robot to be: \n");
 		while (y < 0 || y >= dim) {
 			y = getInt();
 			Envirement.add(" Try again: ");
 		}
-		Envirement.add("Write direction ['N';'W';'S';'E'] or small letter you would like for your robot to face: ");
+		Envirement.add("Write direction ['N';'W';'S';'E'] or small letter you would like for your robot to face: \n");
 		String pom = "";
 		while (!pom.equals("N") && !pom.equals("W") && !pom.equals("S") && !pom.equals("E")) {
-			Envirement.add("That's not a proper char.\n Try again: ");
+			Envirement.add("That's not a proper char.\n Try again: \n");
 			pom = new Scanner(System.in).next();
 			pom.toUpperCase();
 		}
 		direc = pom.charAt(0);
 		b = new Board(dim, x, y, load, direc);
-		Envirement.add("Board propreli crated:)");
+		Envirement.add("Board propreli crated:)\n");
 		return b;
 
 	}
@@ -156,15 +157,15 @@ public class Envirement {
 	 */
 	private static void addBlock() {
 		int x = -1, y = -1;
-		Envirement.add("Write x pozytion of new block: ");
+		Envirement.add("Write x pozytion of new block:\n ");
 		while (x < 0 || x >= b.boardSize) {
 			x = getInt();
-			Envirement.add(" Try again: ");
+			Envirement.add(" Try again: \n");
 		}
-		Envirement.add("Write y pozytion of new block: ");
+		Envirement.add("Write y pozytion of new block:\n ");
 		while (y < 0 || y >= b.boardSize) {
 			y = getInt();
-			Envirement.add(" Try again: ");
+			Envirement.add(" Try again: \n");
 		}
 		b.addBlock(x, y);
 	}
@@ -179,21 +180,19 @@ public class Envirement {
 			try {
 				return Integer.parseInt(new Scanner(System.in).next());
 			} catch (NumberFormatException e) {
-				Envirement.add("That's not a proper int.\n Try again: ");
+				Envirement.add("That's not a proper int.\n Try again: \n");
 			}
 		}
 	}
 
-	static void Run() {
-		Envirement.add("Enter Run");
-		
-		Program p = new Program("progr");
+	/*static void Run(String prgName) {	
+		Program p = new Program(prgName);
 		if (p.compileProg()) {
 			Envirement.add("Compiled");
 			p.runProg();
 		}
 
-	}
+	}*/
 
 	/*
 	 * static void Run() { File f; String progName; while (true) { try {

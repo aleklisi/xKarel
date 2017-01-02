@@ -12,6 +12,8 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.Scanner;
 import java.awt.event.ActionEvent;
 import javax.swing.JMenuBar;
 import java.awt.List;
@@ -65,8 +67,6 @@ public class UsersGUI extends JFrame {
 		/*contentPane.add(scrollPane);
 		contentPane.add(consoleOut);
 		//contentPane.add(scrollPane);*/
-		
-		
 		consoleOut.setText("begin");
 		consoleOut.setColumns(20);
 		//consoleOut.setFont(new java.awt.Font("Tahoma", 0, 12));
@@ -135,16 +135,18 @@ public class UsersGUI extends JFrame {
 		contentPane.add(btnTurnleft);
 		
 		JButton btnHelp = new JButton("Help");
+		btnHelp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				HelpWindow h = new HelpWindow();
+				h.openHelpWindow();
+			}
+		});
 		btnHelp.setBounds(555, 349, 100, 23);
 		contentPane.add(btnHelp);
 		
 		JButton btnSave = new JButton("Save");
 		btnSave.setBounds(661, 349, 100, 23);
 		contentPane.add(btnSave);
-		
-		Checkbox ifSave = new Checkbox("Trace program step by step");
-		ifSave.setBounds(555, 269, 160, 22);
-		contentPane.add(ifSave);
 		
 		JButton btnNewButton = new JButton("New program");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -154,11 +156,28 @@ public class UsersGUI extends JFrame {
 						
 			}
 		});
-		btnNewButton.setBounds(555, 310, 100, 23);
+		btnNewButton.setBounds(555, 170, 206, 30);
 		contentPane.add(btnNewButton);
 		
-		JButton newProc = new JButton("New Porcedure");
-		newProc.setBounds(665, 310, 100, 23);
+		JButton newProc = new JButton("Porcedure Editor");
+		newProc.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ProcedureCreator p = new ProcedureCreator();
+				p.procEdit();
+			}
+		});
+		newProc.setBounds(555, 210, 206, 30);
 		contentPane.add(newProc);
+		
+		JButton runAndCompile = new JButton("Run and Compile ");
+		runAndCompile.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Compile c = new Compile();
+				c.compileAndRun();
+			}
+		});
+		runAndCompile.setBounds(555, 250, 206, 30);
+		contentPane.add(runAndCompile);
 	}
+	
 }

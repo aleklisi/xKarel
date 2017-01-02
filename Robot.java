@@ -83,9 +83,9 @@ class Robot {
 	}
 
 	void allInfo() {
-		Envirement.add("Robot is on: (" + robotPozX + ";" + robotPozY + ")position, has: ");
+		Envirement.add("Robot is on: (" + robotPozX + ";" + robotPozY + ")position, has: \n");
 		Envirement.add(blocksOnTruck + " blocks on truck and there are: " + outer.boardOFBlocks[robotPozX][robotPozY]
-				+ "blocks where it is.");
+				+ "blocks where it is.\n");
 	}
 
 	/**
@@ -108,7 +108,7 @@ class Robot {
 		case 'E':
 			direction = 'N';
 		}
-		Envirement.add(direction+"");
+		Envirement.add(direction+"\n");
 	}
 
 	/**
@@ -117,19 +117,19 @@ class Robot {
 	 */
 	void Put() {
 
-		Envirement.add("Before:");
+		Envirement.add("Before:\n");
 		Envirement.add("There are: " + outer.boardOFBlocks[robotPozX][robotPozY] + "blocks on field: (" + robotPozX
-				+ "," + robotPozY + "). ");
-		Envirement.add("There are: " + blocksOnTruck + " blocksOnTruck now.");
+				+ "," + robotPozY + "). \n");
+		Envirement.add("There are: " + blocksOnTruck + " blocksOnTruck now.\n");
 
 		blocksOnTruck--;
 		outer.boardOFBlocks[robotPozX][robotPozY]++;
 
-		Envirement.add("Robot is Putting block on pozytion (" + robotPozX + "," + robotPozY + "). ");
-		Envirement.add("After:");
+		Envirement.add("Robot is Putting block on pozytion (" + robotPozX + "," + robotPozY + "). \n");
+		Envirement.add("After:\n");
 		Envirement.add("There are: " + outer.boardOFBlocks[robotPozX][robotPozY] + "blocks on field: (" + robotPozX
-				+ "," + robotPozY + "). ");
-		Envirement.add("There are: " + blocksOnTruck + " blocksOnTruck now.");
+				+ "," + robotPozY + ").\n ");
+		Envirement.add("There are: " + blocksOnTruck + " blocksOnTruck now.\n");
 
 	}
 
@@ -139,19 +139,19 @@ class Robot {
 	 */
 	void Take() {
 
-		Envirement.add("Before:");
+		Envirement.add("Before:\n");
 		Envirement.add("There are: " + outer.boardOFBlocks[robotPozX][robotPozY] + "blocks on field: (" + robotPozX
-				+ "," + robotPozY + "). ");
-		Envirement.add("There are: " + blocksOnTruck + " blocksOnTruck now.");
+				+ "," + robotPozY + ").\n ");
+		Envirement.add("There are: " + blocksOnTruck + " blocksOnTruck now.\n");
 
 		blocksOnTruck++;
 		outer.boardOFBlocks[robotPozX][robotPozY]--;
 
-		Envirement.add("Robot is Putting block on pozytion (" + robotPozX + "," + robotPozY + "). ");
-		Envirement.add("After:");
+		Envirement.add("Robot is Putting block on pozytion (" + robotPozX + "," + robotPozY + ").\n ");
+		Envirement.add("After:\n");
 		Envirement.add("There are: " + outer.boardOFBlocks[robotPozX][robotPozY] + "blocks on field: (" + robotPozX
-				+ "," + robotPozY + "). ");
-		Envirement.add("There are: " + blocksOnTruck + " blocksOnTruck now.");
+				+ "," + robotPozY + ").\n ");
+		Envirement.add("There are: " + blocksOnTruck + " blocksOnTruck now.\n");
 
 	}
 
@@ -161,8 +161,8 @@ class Robot {
 	 */
 	void Move() {
 
-		Envirement.add("Before:");
-		Envirement.add("Robot is on pozytion (" + robotPozX + "," + robotPozY + ").");
+		Envirement.add("Before:\n");
+		Envirement.add("Robot is on pozytion (" + robotPozX + "," + robotPozY + ").\n");
 
 		if (direction == 'N') {
 			robotPozY--;
@@ -177,8 +177,8 @@ class Robot {
 			robotPozX++;
 		}
 
-		Envirement.add("After:");
-		Envirement.add("Robot is on pozytion (" + robotPozX + "," + robotPozY + ").");
+		Envirement.add("After:\n");
+		Envirement.add("Robot is on pozytion (" + robotPozX + "," + robotPozY + ").\n");
 
 	}
 

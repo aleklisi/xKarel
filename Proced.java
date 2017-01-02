@@ -43,7 +43,7 @@ public class Proced {
 			}
 			br.close();
 		} catch (Exception e) {
-			Envirement.add("File doesn't exist!");
+			Envirement.add("File doesn't exist!\n");
 			return false;
 		}
 		return true;
@@ -51,7 +51,7 @@ public class Proced {
 
 	int compileProc() {
 		if (proced.isEmpty()) {
-			Envirement.add("Proced is Empty - has 0 code lines in it!");
+			Envirement.add("Proced is Empty - has 0 code lines in it!\n");
 			return 0;
 		}
 		int ProcedLength = proced.toArray().length;
@@ -64,7 +64,7 @@ public class Proced {
 			}
 			if (Interpreter.chceckIfProprerCondition(proced.get(i))) {
 				if (!conditionHandler(i)) {
-					Envirement.add("conditionHandler(" + i + ")");
+					Envirement.add("conditionHandler(" + i + ")\n");
 					return i;
 				} else {
 					continue;
@@ -78,7 +78,7 @@ public class Proced {
 				}
 				proced.set(i, proced.get(i).replaceAll("While", "").replaceAll("\\s+", ""));
 				if (!conditionHandler(i)) {
-					Envirement.add("conditionHandler(" + i + ") while problem");
+					Envirement.add("conditionHandler(" + i + ") while problem\n");
 					return i;
 				} else {
 					Integer j = i;
@@ -92,7 +92,7 @@ public class Proced {
 				return i;
 			}
 		}
-		Envirement.add("Compilation Ended.");
+		Envirement.add("Compilation Ended.\n");
 		return -1;
 
 	}
@@ -120,7 +120,7 @@ public class Proced {
 	boolean conditionHandler(int i) {
 		if (proced.get(i + 1).equals("{")) {
 			if(proced.get(i+2).equals("}")){
-				Envirement.add("Codition changes nothing, becouse it is empty.");
+				Envirement.add("Codition changes nothing, becouse it is empty.\n");
 				return false;
 			}
 			if (findFittingBracket(i + 1) != -1) {
@@ -147,14 +147,14 @@ public class Proced {
 			if (Interpreter.chceckIfProprerCondition(proced.get(i))) {
 				if (Envirement.ifConditionIsTrue(proced.get(i))) {
 					i++;
-					Envirement.add("condition on line:" + i + " is true.");
+					Envirement.add("condition on line:" + i + " is true.\n");
 				} else {
-					Envirement.add("condition on line:" + i + " is false.");
+					Envirement.add("condition on line:" + i + " is false.\n");
 				}
 				continue;
 			}
 			if (isInt(proced.get(i))) {
-				Envirement.add("Jump form line: " + i + "to: " + proced.get(i));
+				Envirement.add("Jump form line: " + i + "to: " + proced.get(i) + "\n");
 				int pomi = Integer.parseInt(proced.get(i));
 				if (pomi < i) {
 					i = pomi - 1;
@@ -162,7 +162,7 @@ public class Proced {
 					i = pomi;
 				}
 				if (i >= ProcedLength || i < -1) {
-					Envirement.add("Proced cant be executed. Brackets problem.");
+					Envirement.add("Proced cant be executed. Brackets problem.\n");
 					break;
 				}
 				continue;
@@ -172,7 +172,7 @@ public class Proced {
 				Envirement.act(proced.get(i));
 				continue;
 			} else {
-				Envirement.add("Proced cant be executed. Error in line: " + i + "in procedure: " + procedName);
+				Envirement.add("Proced cant be executed. Error in line: " + i + "in procedure:\n " + procedName);
 				break;
 			}
 

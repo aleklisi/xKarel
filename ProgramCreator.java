@@ -38,7 +38,7 @@ public class ProgramCreator extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ProgramCreator(){
+	public ProgramCreator() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -47,7 +47,7 @@ public class ProgramCreator extends JFrame {
 		contentPane.setLayout(null);
 
 		JLabel info = new JLabel("");
-		info.setBounds(155, 124, 240, 50);
+		info.setBounds(172, 103, 240, 50);
 		contentPane.add(info);
 
 		JLabel lblNewLabel = new JLabel("Program creator");
@@ -67,7 +67,7 @@ public class ProgramCreator extends JFrame {
 		create.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (makeNewProgram()) {
-					throw new RuntimeException("exit");			
+					setVisible(false);
 				} else {
 					info.setText("Can't make new program.\nRename it and try again.");
 				}
@@ -75,6 +75,15 @@ public class ProgramCreator extends JFrame {
 		});
 		create.setBounds(54, 156, 89, 23);
 		contentPane.add(create);
+		
+		JButton Close = new JButton("Close");
+		Close.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+			}
+		});
+		Close.setBounds(54, 190, 89, 23);
+		contentPane.add(Close);
 
 	}
 
