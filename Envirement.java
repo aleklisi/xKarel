@@ -174,7 +174,7 @@ public class Envirement {
 	}
 	static void Run(){
 		System.out.print("Enter Run");
-		Program p = new Program("prog1");
+		Program p = new Program("progr");
 		if(p.compileProg()){
 			System.out.println("Compiled");
 			p.runProg();
