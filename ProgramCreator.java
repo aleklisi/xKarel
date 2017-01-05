@@ -50,7 +50,7 @@ public class ProgramCreator extends JFrame {
 		info.setBounds(172, 103, 240, 50);
 		contentPane.add(info);
 
-		JLabel lblNewLabel = new JLabel("Program creator");
+		JLabel lblNewLabel = new JLabel("Program creator\n");
 		lblNewLabel.setBounds(34, 22, 100, 14);
 		contentPane.add(lblNewLabel);
 
@@ -69,7 +69,7 @@ public class ProgramCreator extends JFrame {
 				if (makeNewProgram()) {
 					setVisible(false);
 				} else {
-					info.setText("Can't make new program.\nRename it and try again.");
+					info.setText("Can't make program. Rename it and try again.");
 				}
 			}
 		});

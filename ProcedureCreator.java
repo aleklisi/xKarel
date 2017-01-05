@@ -115,20 +115,6 @@ public class ProcedureCreator extends JFrame {
 		lblNameYourProcedure.setBounds(557, 344, 199, 21);
 		contentPane.add(lblNameYourProcedure);
 
-		JButton btnCompile = new JButton("Compile");
-		btnCompile.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(compile()){
-					btnCompile.setBackground(Color.GREEN);
-				}else{
-					btnCompile.setBackground(Color.RED);
-				}
-			}
-		});
-		btnCompile.setBounds(656, 463, 89, 23);
-
-		contentPane.add(btnCompile);
-
 		JButton btnClose = new JButton("Close");
 		btnClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -179,7 +165,7 @@ public class ProcedureCreator extends JFrame {
 				h.openHelpWindow();
 			}
 		});
-		Help.setBounds(557, 497, 89, 23);
+		Help.setBounds(656, 463, 89, 23);
 		contentPane.add(Help);
 	}
 

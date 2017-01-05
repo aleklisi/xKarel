@@ -114,10 +114,6 @@ public class Compile extends JFrame {
 		list.setBounds(634, 11, 140, 430);
 		contentPane.add(list);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-		JCheckBox stepByStep = new JCheckBox("Folow step by step");
-		stepByStep.setBounds(634, 464, 133, 23);
-		contentPane.add(stepByStep);
 		
 		JButton btnClose = new JButton("Close");
 		btnClose.addActionListener(new ActionListener() {
@@ -154,12 +150,12 @@ public class Compile extends JFrame {
 	}
 
 	boolean compile(String programName) {
-		Program p = new Program(programName);
+		IProgram p = new Program(programName);
 		return p.compileProg();
 	}
 
 	void run(String programName) {
-		Program p = new Program(programName);
+		IProgram p = new Program(programName);
 		if (p.compileProg()) {
 			p.runProg();
 		}

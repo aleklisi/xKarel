@@ -1,10 +1,11 @@
+import java.awt.peer.RobotPeer;
 
 /**
  * 
  * @author Alek Lisiecki inner class for Board but in separate file to make code
  *         cleaner
  */
-class Robot {
+class Robot{
 	private int robotPozX;
 	private int robotPozY;
 	private int blocksOnTruck;
@@ -66,7 +67,7 @@ class Robot {
 	/**
 	 * @return how many blocks are in robots container
 	 */
-	int blockOn() {
+	public int blockOnTruck() {
 		return blocksOnTruck;
 	}
 
@@ -75,7 +76,7 @@ class Robot {
 	 * @return returns 2 elements int array where [horizontal,vertical] robot's
 	 *         position
 	 */
-	int[] getCurrentPoz() {
+	public int[] getCurrentPoz() {
 		int[] XY = new int[2];
 		XY[0] = robotPozX;
 		XY[1] = robotPozY;
@@ -92,7 +93,7 @@ class Robot {
 	 * Robot will turn to the left. He will stay on the field he was standing
 	 * before performance of the command. Neither will take nor put any brick.
 	 */
-	void Turnleft() {
+	public void Turnleft() {
 		Envirement.add("Turnleft chage direction from: " + direction + " to: ");
 		switch (direction) {
 		case 'N':
@@ -115,7 +116,7 @@ class Robot {
 	 * Karel will put a brick on the field, on which he is standing. Neither he
 	 * will move to another field nor turn to another direction.
 	 */
-	void Put() {
+	public void Put() {
 
 		Envirement.add("Before:\n");
 		Envirement.add("There are: " + outer.boardOFBlocks[robotPozX][robotPozY] + "blocks on field: (" + robotPozX
@@ -137,7 +138,7 @@ class Robot {
 	 * Karel will take (remove) a brick of the field he is standing on. Neither
 	 * he will move to another field nor turn to another direction.
 	 */
-	void Take() {
+	public void Take() {
 
 		Envirement.add("Before:\n");
 		Envirement.add("There are: " + outer.boardOFBlocks[robotPozX][robotPozY] + "blocks on field: (" + robotPozX
@@ -159,7 +160,7 @@ class Robot {
 	 * Karel will make a step. He will therefore move by one field in the
 	 * direction he faces and he won't change it.
 	 */
-	void Move() {
+	public void Move() {
 
 		Envirement.add("Before:\n");
 		Envirement.add("Robot is on pozytion (" + robotPozX + "," + robotPozY + ").\n");
@@ -185,7 +186,7 @@ class Robot {
 	/**
 	 * Condition is true if Robot faces the north (up)
 	 */
-	boolean IsNorth() {
+	public boolean IsNorth() {
 		if (direction == 'N') {
 			return true;
 		}
@@ -195,7 +196,7 @@ class Robot {
 	/**
 	 * Condition is true if Robot is standing on the field where a brick lies.
 	 */
-	boolean IsBrick() {
+	public boolean IsBrick() {
 		if (outer.boardOFBlocks[robotPozX][robotPozY] > 0) {
 			return true;
 		}
@@ -207,7 +208,7 @@ class Robot {
 	 * in such a position and is facing in such a direction that if he made a
 	 * Move, he will collide with the wall.
 	 */
-	boolean IsWall() {
+	public boolean IsWall() {
 		if (direction == 'N' && robotPozY == 0) {
 			return true;
 		}

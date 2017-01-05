@@ -1,5 +1,5 @@
 
-public class Board {
+public class Board implements IBoard {
 	int[][] boardOFBlocks;
 	Robot robot;
 	int boardSize;
@@ -47,11 +47,11 @@ public class Board {
 		this(10, 6, 4, 1, 'N');
 	}
 
-	void addBlock(int x, int y) {
+	public void addBlock(int x, int y) {
 		boardOFBlocks[x][y]++;
 	}
 
-	boolean takeBlock(int x, int y) {
+	public boolean takeBlock(int x, int y) {
 		if (boardOFBlocks[x][y] > 0) {
 			boardOFBlocks[x][y]--;
 			return true;
@@ -59,7 +59,7 @@ public class Board {
 		return false;
 	}
 
-	void showBoard() {
+	public void showBoard() {
 		for (int i = 0; i < boardSize; i++) {
 			Envirement.add("\n");
 			for (int j = 0; j < boardSize; j++) {
@@ -70,5 +70,60 @@ public class Board {
 		robot.allInfo();
 		Envirement.add(" ");
 
+	}
+
+	public int[][] getBoard() {
+		return boardOFBlocks;
+	}
+
+	@Override
+	public int blocksOnTruck() {
+		return robot.blockOnTruck();
+	}
+
+	@Override
+	public int[] getCurrentPoz() {
+		return robot.getCurrentPoz();
+	}
+
+	@Override
+	public boolean IsWall() {
+		return robot.IsWall();
+	}
+
+	@Override
+	public void Move() {
+robot.Move();		
+	}
+
+	@Override
+	public void Put() {
+robot.Put();		
+	}
+
+	@Override
+	public void Take() {
+robot.Take();		
+	}
+
+	@Override
+	public void Turnleft() {
+robot.Turnleft();		
+	}
+
+	@Override
+	public boolean IsNorth() {
+		return robot.IsNorth();
+	}
+
+	@Override
+	public boolean IsBrick() {
+		// TODO Auto-generated method stub
+		return robot.IsBrick();
+	}
+
+	@Override
+	public int boardSize() {
+		return boardSize;
 	}
 }

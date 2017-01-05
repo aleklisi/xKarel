@@ -7,12 +7,12 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Proced {
+public class Proced implements IProced {
 	List<String> proced;
 	String procedName;
-	final Program outer;
+	final IProgram outer;
 
-	Proced(Program outer) {
+	Proced(IProgram outer) {
 		proced = new ArrayList<String>();
 		this.outer = outer;
 	}
@@ -32,7 +32,7 @@ public class Proced {
 	 * @return true if file was correctly read if there were any prblems returns
 	 *         false
 	 */
-	boolean readFileToProc(File f) {
+	public boolean readFileToProc(File f) {
 		String line;
 		try {
 			InputStream fis = new FileInputStream(f);
@@ -49,7 +49,7 @@ public class Proced {
 		return true;
 	}
 
-	int compileProc() {
+	public int compileProc() {
 		if (proced.isEmpty()) {
 			Envirement.add("Proced is Empty - has 0 code lines in it!\n");
 			return 0;
@@ -132,7 +132,7 @@ public class Proced {
 		return false;
 	}
 
-	void run() {
+	public void run() {
 		cout();
 		int ProcedLength = proced.toArray().length;
 		for (int i = 0; i < ProcedLength; i++) {
@@ -196,6 +196,11 @@ public class Proced {
 		}
 		// only got here if we didn't return false
 		return true;
+	}
+
+	@Override
+	public String procedName() {
+		return procedName;
 	}
 
 }

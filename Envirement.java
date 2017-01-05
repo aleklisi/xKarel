@@ -3,9 +3,8 @@ import java.util.*;
 
 public class Envirement {
 
-	static Board b = new Board();
+	static IBoard b = new Board();
 	static String consoleOutput = "";
-	
 	/*
 	 * public static void main(String[] args) { String nextAction =
 	 * readNewCommand(); while (!nextAction.equals("End")) { nextAction =
@@ -67,16 +66,16 @@ public class Envirement {
 	static void act(String functionName) {
 		switch (functionName) {
 		case "Move":
-			b.robot.Move();
+			b.Move();
 			break;
 		case "Put":
-			b.robot.Put();
+			b.Put();
 			break;
 		case "Take":
-			b.robot.Take();
+			b.Take();
 			break;
 		case "Turnleft":
-			b.robot.Turnleft();
+			b.Turnleft();
 			break;
 		case "BoardCreator":
 			b = createNewBoard();
@@ -96,17 +95,17 @@ public class Envirement {
 	static boolean ifConditionIsTrue(String comandName) {
 		switch (comandName) {
 		case "IsWall":
-			return b.robot.IsWall();
+			return b.IsWall();
 		case "NOTIsWall":
-			return !b.robot.IsWall();
+			return !b.IsWall();
 		case "IsNorth":
-			return b.robot.IsNorth();
+			return b.IsNorth();
 		case "NOTIsNorth":
-			return !b.robot.IsNorth();
+			return !b.IsNorth();
 		case "IsBrick":
-			return b.robot.IsBrick();
+			return b.IsBrick();
 		case "NOTIsBrick":
-			return b.robot.IsBrick();
+			return b.IsBrick();
 
 		}
 		return false;
@@ -119,7 +118,7 @@ public class Envirement {
 	 * 
 	 * @return new board with given configuration parameters
 	 */
-	private static Board createNewBoard() {
+	private static IBoard createNewBoard() {
 		int dim = 0, x = -1, y = -1, load = -1;
 		char direc = 'N';
 		Envirement.add("Write dimetion you would like for your board to have: \n");
@@ -158,12 +157,12 @@ public class Envirement {
 	private static void addBlock() {
 		int x = -1, y = -1;
 		Envirement.add("Write x pozytion of new block:\n ");
-		while (x < 0 || x >= b.boardSize) {
+		while (x < 0 || x >= b.boardSize()) {
 			x = getInt();
 			Envirement.add(" Try again: \n");
 		}
 		Envirement.add("Write y pozytion of new block:\n ");
-		while (y < 0 || y >= b.boardSize) {
+		while (y < 0 || y >= b.boardSize()) {
 			y = getInt();
 			Envirement.add(" Try again: \n");
 		}
