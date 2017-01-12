@@ -1,32 +1,49 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class History {
-	List<String> proced;
-	Board beginingBoard;
-	int actionCounter;
-	History(Board b){
-		proced = new ArrayList<String>();
-		beginingBoard = b;
-		actionCounter = 0;
+import javax.naming.InitialContext;
+
+public class History implements IHistory {
+	private IBoard innitialBoard;
+	private int cuttentActionNumer = 0;
+	private List<String> actionStepByStep = new ArrayList<String>();
+
+	@Override
+	public boolean saveBoard(IBoard b) {
+		try {
+			innitialBoard = b;
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
-	void addAction(String actionName){
-		proced.add(actionName);
-		actionCounter++;
+
+	@Override
+	public void addAction(String actionName) {
+		actionStepByStep.add(actionName);
 	}
-	Board foreward(){
-		Board reult = beginingBoard;
-		actionCounter++;		
-		
-		return reult;
+
+	@Override
+	public String getAction(int actionNumber) {
+		if (actionNumber >= 0 && actionNumber < actionStepByStep.size()) {
+			return actionStepByStep.get(actionNumber);
+		}
+		return "CANT";
 	}
-	Board backward(){
-		Board reult = beginingBoard;
-		actionCounter--;
-		
-		return reult;
+
+	@Override
+	public String actionForeward() {
+		return getAction(++cuttentActionNumer);
 	}
-	void reset(){
-		proced.clear();
+
+	@Override
+	public String actionBackward() {
+		return getAction(--cuttentActionNumer);
+	}
+
+	@Override
+	public void reset() {
+		cuttentActionNumer = 0;
+		actionStepByStep.clear();
 	}
 }

@@ -5,6 +5,4 @@ public interface IProced {
 	int compileProc();
 	void run();
 	String procedName();
-	
-
 }

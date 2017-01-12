@@ -152,8 +152,7 @@ public class UsersGUI extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ProgramCreator p = new ProgramCreator();
-				p.makeProg();
-						
+				p.makeProg();						
 			}
 		});
 		btnNewButton.setBounds(555, 170, 206, 30);

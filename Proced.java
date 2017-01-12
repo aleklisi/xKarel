@@ -134,7 +134,7 @@ public class Proced implements IProced {
 
 	public void run() {
 		cout();
-		int ProcedLength = proced.toArray().length;
+		int ProcedLength = proced.toArray().length; 
 		for (int i = 0; i < ProcedLength; i++) {
 			Envirement.add(i+"");
 			if (proced.get(i).equals("{") || proced.get(i).equals("}")) {
@@ -162,7 +162,7 @@ public class Proced implements IProced {
 					i = pomi;
 				}
 				if (i >= ProcedLength || i < -1) {
-					Envirement.add("Proced cant be executed. Brackets problem.\n");
+					//Envirement.add("Proced cant be executed. Brackets problem.\n");
 					break;
 				}
 				continue;
@@ -182,7 +182,7 @@ public class Proced implements IProced {
 	void cout() {
 		int ProcedLength = proced.toArray().length;
 		for (int i = 0; i < ProcedLength; i++) {
-			Envirement.add(i + "	" + proced.get(i));
+			Envirement.add(i + "	" + proced.get(i) + "\n");
 		}
 	}
 

@@ -4,9 +4,9 @@ public class Interpreter {
 	final static String[] possibleConditions = { "IsNorth","IsWall","IsBrick", "NOTIsNorth","NOTIsWall","NOTIsBrick" };
 	final static String[] boardCreatorCommends = {"BoardCreator", "AddBlock"};
 	static int commandsCounter = 0;
-
+	final static private int maxCodeLinesNumber = 1000; 
 	static boolean chceckIfProprerCommand(String command) {
-		if(commandsCounter++ > 1000){
+		if(commandsCounter++ > maxCodeLinesNumber){
 			return false;
 		}
 		for (String comandName : possibleCommends) {
@@ -17,7 +17,7 @@ public class Interpreter {
 		return false;
 	}
 	static boolean chceckIfProprerCondition(String command) {
-		if(commandsCounter++ > 1000){
+		if(commandsCounter++ > maxCodeLinesNumber){
 			return false;
 		}
 		for (String comandName : possibleConditions) {
@@ -28,10 +28,10 @@ public class Interpreter {
 		return false;
 	}
 	static boolean chceckIfProperBoardCreatorCommand(String command) {
-		if(commandsCounter++ > 1000){
+		if(commandsCounter++ > maxCodeLinesNumber){
 			return false;
 		}
-		for (String comandName : possibleConditions) {
+		for (String comandName : boardCreatorCommends) {
 			if (command.equals(comandName)) {
 				return true;
 			}
@@ -39,7 +39,7 @@ public class Interpreter {
 		return false;
 	}
 	static boolean chceckIfProprerWhileLoop(String command) {
-		if(commandsCounter++ > 1000){
+		if(commandsCounter++ > maxCodeLinesNumber){
 			return false;
 		}
 		for (String comandName : possibleConditions) {

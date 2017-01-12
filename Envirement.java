@@ -2,9 +2,10 @@ import java.io.*;
 import java.util.*;
 
 public class Envirement {
-
+	static IHistory hist = new History();
 	static IBoard b = new Board();
 	static String consoleOutput = "";
+
 	/*
 	 * public static void main(String[] args) { String nextAction =
 	 * readNewCommand(); while (!nextAction.equals("End")) { nextAction =
@@ -46,24 +47,20 @@ public class Envirement {
 	 * 
 	 * @return 1 line form console
 	 */
-	private static String readNewCommand() {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		String s = "";
-		// Envirement.add("Enter new command:");
-		try {
-			s = br.readLine();
-			// Envirement.add(s);
-			// Envirement.add(Interpreter.chceckIfProprerCommand(s));
-		} catch (IOException e) {
-			e = new IOException("Can't read new command.");
-		}
-		return s;
-	}
-
-	/**
-	 * function that makes action accualy happen
+	/*
+	 * private static String readNewCommand() { BufferedReader br = new
+	 * BufferedReader(new InputStreamReader(System.in)); String s = ""; //
+	 * Envirement.add("Enter new command:"); try { s = br.readLine(); //
+	 * Envirement.add(s); //
+	 * Envirement.add(Interpreter.chceckIfProprerCommand(s)); } catch
+	 * (IOException e) { e = new IOException("Can't read new command."); }
+	 * return s; }
+	 * 
+	 * /** function that makes action accualy happen
 	 */
+
 	static void act(String functionName) {
+		hist.addAction(functionName);
 		switch (functionName) {
 		case "Move":
 			b.Move();
@@ -77,18 +74,15 @@ public class Envirement {
 		case "Turnleft":
 			b.Turnleft();
 			break;
-		case "BoardCreator":
-			b = createNewBoard();
-			break;
-		case "AddBlock":
-			addBlock();
-			break;
-		case "ShowBoard":
+		/*
+		 * case "BoardCreator": b = createNewBoard(); break; case "AddBlock":
+		 * addBlock(); break;
+		 */case "ShowBoard":
 			b.showBoard();
 			break;
-		/*case "Run":
-			Run();
-			break;*/
+		/*
+		 * case "Run": Run(); break;
+		 */
 		}
 	}
 
@@ -118,57 +112,41 @@ public class Envirement {
 	 * 
 	 * @return new board with given configuration parameters
 	 */
-	private static IBoard createNewBoard() {
-		int dim = 0, x = -1, y = -1, load = -1;
-		char direc = 'N';
-		Envirement.add("Write dimetion you would like for your board to have: \n");
-		while (dim <= 0) {
-			dim = getInt();
-		}
-		Envirement.add("Write x pozytion [0;dimention-1] you would like for your robot to be:\n ");
-		while (x < 0 || x >= dim) {
-			x = getInt();
-			Envirement.add(" Try again: ");
-		}
-		Envirement.add("Write y pozytion [0;dimention-1] you would like for your robot to be: \n");
-		while (y < 0 || y >= dim) {
-			y = getInt();
-			Envirement.add(" Try again: ");
-		}
-		Envirement.add("Write direction ['N';'W';'S';'E'] or small letter you would like for your robot to face: \n");
-		String pom = "";
-		while (!pom.equals("N") && !pom.equals("W") && !pom.equals("S") && !pom.equals("E")) {
-			Envirement.add("That's not a proper char.\n Try again: \n");
-			pom = new Scanner(System.in).next();
-			pom.toUpperCase();
-		}
-		direc = pom.charAt(0);
-		b = new Board(dim, x, y, load, direc);
-		Envirement.add("Board propreli crated:)\n");
-		return b;
-
-	}
-
+	/*
+	 * private static IBoard createNewBoard() { int dim = 0, x = -1, y = -1,
+	 * load = -1; char direc = 'N';
+	 * Envirement.add("Write dimetion you would like for your board to have: \n"
+	 * ); while (dim <= 0) { dim = getInt(); } Envirement.
+	 * add("Write x pozytion [0;dimention-1] you would like for your robot to be:\n "
+	 * ); while (x < 0 || x >= dim) { x = getInt();
+	 * Envirement.add(" Try again: "); } Envirement.
+	 * add("Write y pozytion [0;dimention-1] you would like for your robot to be: \n"
+	 * ); while (y < 0 || y >= dim) { y = getInt();
+	 * Envirement.add(" Try again: "); } Envirement.
+	 * add("Write direction ['N';'W';'S';'E'] or small letter you would like for your robot to face: \n"
+	 * ); String pom = ""; while (!pom.equals("N") && !pom.equals("W") &&
+	 * !pom.equals("S") && !pom.equals("E")) {
+	 * Envirement.add("That's not a proper char.\n Try again: \n"); pom = new
+	 * Scanner(System.in).next(); pom.toUpperCase(); } direc = pom.charAt(0); b
+	 * = new Board(dim, x, y, load, direc);
+	 * Envirement.add("Board propreli crated:)\n"); return b;
+	 * 
+	 * }
+	 */
 	/**
 	 * function that ads block to (x,y) position where x and y are read in loop
 	 * until int possible configuration x and y are given (0 <= x < size of
 	 * board),(0 <= y < size of board)
 	 */
-	private static void addBlock() {
-		int x = -1, y = -1;
-		Envirement.add("Write x pozytion of new block:\n ");
-		while (x < 0 || x >= b.boardSize()) {
-			x = getInt();
-			Envirement.add(" Try again: \n");
-		}
-		Envirement.add("Write y pozytion of new block:\n ");
-		while (y < 0 || y >= b.boardSize()) {
-			y = getInt();
-			Envirement.add(" Try again: \n");
-		}
-		b.addBlock(x, y);
-	}
 
+	/*
+	 * private static void addBlock() { int x = -1, y = -1;
+	 * Envirement.add("Write x pozytion of new block:\n "); while (x < 0 || x >=
+	 * b.boardSize()) { x = getInt(); Envirement.add(" Try again: \n"); }
+	 * Envirement.add("Write y pozytion of new block:\n "); while (y < 0 || y >=
+	 * b.boardSize()) { y = getInt(); Envirement.add(" Try again: \n"); }
+	 * b.addBlock(x, y); }
+	 */
 	/**
 	 * function reads from console until correct int is given
 	 * 
@@ -184,14 +162,12 @@ public class Envirement {
 		}
 	}
 
-	/*static void Run(String prgName) {	
-		Program p = new Program(prgName);
-		if (p.compileProg()) {
-			Envirement.add("Compiled");
-			p.runProg();
-		}
-
-	}*/
+	/*
+	 * static void Run(String prgName) { Program p = new Program(prgName); if
+	 * (p.compileProg()) { Envirement.add("Compiled"); p.runProg(); }
+	 * 
+	 * }
+	 */
 
 	/*
 	 * static void Run() { File f; String progName; while (true) { try {
