@@ -1,49 +1,78 @@
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.InitialContext;
-
 public class History implements IHistory {
-	private IBoard innitialBoard;
-	private int cuttentActionNumer = 0;
-	private List<String> actionStepByStep = new ArrayList<String>();
+
+	private int cuttentActionNumer = -1;
+	
+	private List<IBoard> actionStepByStep = new ArrayList<IBoard>();
 
 	@Override
-	public boolean saveBoard(IBoard b) {
-		try {
-			innitialBoard = b;
-			return true;
-		} catch (Exception e) {
+	public void saveBoard(IBoard b) {	
+		actionStepByStep.add(b);
+		cuttentActionNumer++;
+		for (IBoard board : actionStepByStep) {
+			board.showBoard();
+		}
+	}
+
+	private boolean boardAviableUp() {
+		if (cuttentActionNumer + 1 >= actionStepByStep.size()) {
 			return false;
 		}
+		return true;
 	}
 
-	@Override
-	public void addAction(String actionName) {
-		actionStepByStep.add(actionName);
-	}
-
-	@Override
-	public String getAction(int actionNumber) {
-		if (actionNumber >= 0 && actionNumber < actionStepByStep.size()) {
-			return actionStepByStep.get(actionNumber);
+	private boolean boardAviableDown() {
+		if (cuttentActionNumer - 1 < 0) {
+			return false;
 		}
-		return "CANT";
+		return true;
 	}
 
 	@Override
-	public String actionForeward() {
-		return getAction(++cuttentActionNumer);
+	public IBoard actionForeward() {
+			System.out.println("Szo³ board");
+			for (IBoard board : actionStepByStep) {
+				board.showBoard();
+			}
+			System.out.println("End Szo³ board");
+		
+		if (boardAviableUp()) {
+			System.out.println("boardAviableUp()" + cuttentActionNumer);
+			return actionStepByStep.get(++cuttentActionNumer);
+		} else {
+			System.out.println("!boardAviableUp()" + cuttentActionNumer);
+			return actionStepByStep.get(cuttentActionNumer);
+		}
 	}
 
 	@Override
-	public String actionBackward() {
-		return getAction(--cuttentActionNumer);
+	public IBoard actionBackward() {
+		if (boardAviableDown()) {
+			System.out.println("boardAviableDown()" + cuttentActionNumer);
+			return actionStepByStep.get(--cuttentActionNumer);
+		} else {
+			System.out.println("!boardAviableDown()" + cuttentActionNumer);
+			return actionStepByStep.get(cuttentActionNumer);
+		}
 	}
 
 	@Override
-	public void reset() {
-		cuttentActionNumer = 0;
+	public void clearAllPreviousActions(IBoard currentBoard) {
 		actionStepByStep.clear();
+		cuttentActionNumer = 0;
 	}
+
+	@Override
+	public boolean IsEmpty() {
+		return actionStepByStep.isEmpty();
+	}
+
+	@Override
+	public void saveAction(String actionName) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

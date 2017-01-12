@@ -1,10 +1,14 @@
-
 public interface IHistory {
 
-	boolean saveBoard(IBoard b);
-	void addAction(String actionName);
-	String getAction(int actionNumber);
-	String actionForeward();
-	String actionBackward();
-	void reset();
+	void saveBoard(IBoard b);
+
+	void saveAction(String actionName);
+
+	IBoard actionForeward();
+
+	IBoard actionBackward();
+
+	void clearAllPreviousActions(IBoard currentBoard);
+
+	boolean IsEmpty();
 }

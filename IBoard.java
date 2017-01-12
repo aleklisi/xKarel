@@ -13,6 +13,6 @@ public interface  IBoard {
 	void Turnleft();
 	boolean IsNorth();
 	boolean IsBrick();
-	int boardSize();
-	
+	int boardSize();	
+	void setRobot(int x, int y, int numberOfBlocks, char direction);
 }

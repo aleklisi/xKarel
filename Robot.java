@@ -1,4 +1,3 @@
-import java.awt.peer.RobotPeer;
 
 /**
  * 
@@ -22,7 +21,13 @@ class Robot{
 	 * @param outer
 	 *            - board robot stands and moves on
 	 */
-
+	Robot(Robot copied){
+		this.robotPozX = copied.robotPozX;
+		this.robotPozY = copied.robotPozY;
+		this.blocksOnTruck = copied.blocksOnTruck;
+		this.direction = copied.direction;
+		this.outer = copied.outer;
+	}
 	Robot(int x, int y, Board outer) {
 		if (x < 0 || y < 0) {
 			throw new RuntimeException("x and y must be positive.");

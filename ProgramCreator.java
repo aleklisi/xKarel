@@ -28,6 +28,7 @@ public class ProgramCreator extends JFrame {
 				try {
 					ProgramCreator frame = new ProgramCreator();
 					frame.setVisible(true);
+					frame.setResizable(false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

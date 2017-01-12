@@ -41,6 +41,8 @@ public class ProcedureCreator extends JFrame {
 				try {
 					ProcedureCreator frame = new ProcedureCreator();
 					frame.setVisible(true);
+					frame.setResizable(false);
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

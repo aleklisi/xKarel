@@ -1,9 +1,9 @@
-import java.io.*;
 import java.util.*;
 
 public class Envirement {
-	static IHistory hist = new History();
+//	static IHistory hist = new History();
 	static IBoard b = new Board();
+	//static IBoard historyBeginning = new
 	static String consoleOutput = "";
 
 	/*
@@ -60,7 +60,8 @@ public class Envirement {
 	 */
 
 	static void act(String functionName) {
-		hist.addAction(functionName);
+		//hist.saveAction(functionName);
+		//hist.saveBoard(b);
 		switch (functionName) {
 		case "Move":
 			b.Move();

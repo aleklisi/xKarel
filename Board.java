@@ -1,5 +1,5 @@
 
-public class Board implements IBoard {
+public class Board implements IBoard,Cloneable {
 	int[][] boardOFBlocks;
 	Robot robot;
 	int boardSize;
@@ -18,6 +18,12 @@ public class Board implements IBoard {
 	 * @param roboFaceDirection
 	 *            initial direction where robot faces
 	 */
+	/*Board(Board copied){
+		this.boardOFBlocks = copied.getBoard();
+		this.robot = copied.robot;
+		this.boardSize = copied.boardSize();
+	}*/
+
 	Board(int dimentionOfBoard, int rPozX, int rPozY, int blocksOnTruck, char roboFaceDirection) {
 		if (dimentionOfBoard > 0) {
 			boardSize = dimentionOfBoard;
@@ -62,10 +68,13 @@ public class Board implements IBoard {
 	public void showBoard() {
 		for (int i = 0; i < boardSize; i++) {
 			Envirement.add("\n");
+			System.out.print("\n");
 			for (int j = 0; j < boardSize; j++) {
 				Envirement.add(boardOFBlocks[j][i] + "	");
+				System.out.print(boardOFBlocks[j][i] + " ");
 			}
 		}
+		System.out.print("Nowa plansza:\n");
 		Envirement.add(" ");
 		robot.allInfo();
 		Envirement.add(" ");
@@ -125,5 +134,11 @@ robot.Turnleft();
 	@Override
 	public int boardSize() {
 		return boardSize;
+	}
+
+	@Override
+	public void setRobot(int x, int y, int numberOfBlocks, char direction) {
+		// TODO Auto-generated method stub
+		
 	}
 }
