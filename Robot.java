@@ -28,6 +28,18 @@ class Robot{
 		this.direction = copied.direction;
 		this.outer = copied.outer;
 	}
+	void setX(int x){
+		robotPozX = x;
+	}
+	void setY(int y){
+		robotPozX = y;
+	}
+	void setBlocks(int b){
+		blocksOnTruck = b;
+	}
+	void setDirection(char d){
+		direction = d;
+	}
 	Robot(int x, int y, Board outer) {
 		if (x < 0 || y < 0) {
 			throw new RuntimeException("x and y must be positive.");

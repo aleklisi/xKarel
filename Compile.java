@@ -1,4 +1,4 @@
-import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.io.File;
 import java.util.List;
@@ -15,7 +15,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
-import javax.swing.JCheckBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -84,8 +83,10 @@ public class Compile extends JFrame {
 					if (compile(currentProgram.getName())) {
 						answear();
 						output.setText(i + answear() + "Compilation succeded!");
+						btnCompile.setBackground(Color.GREEN);
 					} else {
 						output.setText(i + answear() + "Compilation failed!");
+						btnCompile.setBackground(Color.RED);
 					}
 				}
 			}
@@ -135,6 +136,9 @@ public class Compile extends JFrame {
 			}
 		});
 
+		
+		
+		
 	}
 
 	private Vector<File> getProgrames() {

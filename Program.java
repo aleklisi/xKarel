@@ -57,7 +57,7 @@ public class Program implements IProgram {
 		for (int i = 0; i < programProcedures.size(); i++) {
 			if (programProcedures.get(i).compileProc() > -1) {
 				Envirement.add("Problem in procedure: " + programProcedures.get(i).procedName() + "\n");
-			//	return false;
+				return false;
 			}
 		}
 		Envirement.add("Program is compiled correctly :D\n");

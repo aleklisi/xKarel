@@ -1,5 +1,5 @@
 
-public class Board implements IBoard,Cloneable {
+public class Board implements IBoard, Cloneable {
 	int[][] boardOFBlocks;
 	Robot robot;
 	int boardSize;
@@ -18,11 +18,10 @@ public class Board implements IBoard,Cloneable {
 	 * @param roboFaceDirection
 	 *            initial direction where robot faces
 	 */
-	/*Board(Board copied){
-		this.boardOFBlocks = copied.getBoard();
-		this.robot = copied.robot;
-		this.boardSize = copied.boardSize();
-	}*/
+	/*
+	 * Board(Board copied){ this.boardOFBlocks = copied.getBoard(); this.robot =
+	 * copied.robot; this.boardSize = copied.boardSize(); }
+	 */
 
 	Board(int dimentionOfBoard, int rPozX, int rPozY, int blocksOnTruck, char roboFaceDirection) {
 		if (dimentionOfBoard > 0) {
@@ -102,22 +101,22 @@ public class Board implements IBoard,Cloneable {
 
 	@Override
 	public void Move() {
-robot.Move();		
+		robot.Move();
 	}
 
 	@Override
 	public void Put() {
-robot.Put();		
+		robot.Put();
 	}
 
 	@Override
 	public void Take() {
-robot.Take();		
+		robot.Take();
 	}
 
 	@Override
 	public void Turnleft() {
-robot.Turnleft();		
+		robot.Turnleft();
 	}
 
 	@Override
@@ -127,7 +126,6 @@ robot.Turnleft();
 
 	@Override
 	public boolean IsBrick() {
-		// TODO Auto-generated method stub
 		return robot.IsBrick();
 	}
 
@@ -138,7 +136,18 @@ robot.Turnleft();
 
 	@Override
 	public void setRobot(int x, int y, int numberOfBlocks, char direction) {
-		// TODO Auto-generated method stub
-		
+		robot.setX(x);
+		robot.setY(y);
+		robot.setDirection(direction);
+		robot.setBlocks(numberOfBlocks);
+	}
+
+	@Override
+	public boolean setNumberOfBlocks(int x, int y, int numberOfBlocks) {
+		if (x >= 0 && x < boardSize && y >= 0 && y < boardSize && numberOfBlocks >= 0) {
+			boardOFBlocks[x][y] = numberOfBlocks;
+			return true;
+		}
+		return false;
 	}
 }

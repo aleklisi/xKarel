@@ -3,6 +3,7 @@ public interface  IBoard {
 	void showBoard();
 	void addBlock(int x,int y);
 	boolean takeBlock(int x, int y);
+	boolean setNumberOfBlocks(int x, int y, int numberOfBlocks);
 	int[][] getBoard();	
 	int blocksOnTruck();
 	int[] getCurrentPoz();
