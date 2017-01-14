@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class Board implements IBoard, Cloneable {
+public class Board implements IBoard, Serializable {
 	int[][] boardOFBlocks;
 	Robot robot;
 	int boardSize;

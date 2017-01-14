@@ -68,13 +68,13 @@ public class HelpWindow extends JFrame {
 		contentPane.add(scrollPane);
 		scrollPane.setBounds(20, 20, 740, 500);
 		
-		close = new JButton("Close");
+		close = new JButton("Close Window");
 		close.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
 			}
 		});
-		close.setBounds(30, 528, 89, 23);
+		close.setBounds(30, 528, 168, 23);
 		contentPane.add(close);
 	}
 	private String help(){

@@ -97,7 +97,7 @@ public class Proced implements IProced {
 
 	}
 
-	Integer findFittingBracket(int i) {
+	private Integer findFittingBracket(int i) {
 		int bracketCounter = 1;
 		int wynik = i + 2;
 		int ProcedLength = proced.toArray().length;
@@ -117,7 +117,7 @@ public class Proced implements IProced {
 		return wynik;
 	}
 
-	boolean conditionHandler(int i) {
+	private boolean conditionHandler(int i) {
 		if (proced.get(i + 1).equals("{")) {
 			if(proced.get(i+2).equals("}")){
 				Envirement.add("Codition changes nothing, becouse it is empty.\n");
@@ -179,14 +179,14 @@ public class Proced implements IProced {
 		}
 	}
 
-	void cout() {
+	private void cout() {
 		int ProcedLength = proced.toArray().length;
 		for (int i = 0; i < ProcedLength; i++) {
 			Envirement.add(i + "	" + proced.get(i) + "\n");
 		}
 	}
 
-	public static boolean isInt(String s) {
+	private static boolean isInt(String s) {
 		try {
 			Integer.parseInt(s);
 		} catch (NumberFormatException e) {

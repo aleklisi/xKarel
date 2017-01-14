@@ -1,10 +1,11 @@
+import java.io.Serializable;
 
 /**
  * 
  * @author Alek Lisiecki inner class for Board but in separate file to make code
  *         cleaner
  */
-class Robot{
+class Robot implements Serializable{
 	private int robotPozX;
 	private int robotPozY;
 	private int blocksOnTruck;

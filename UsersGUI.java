@@ -103,10 +103,11 @@ public class UsersGUI extends JFrame {
 		contentPane.add(list);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-		JButton btnClose = new JButton("Close");
+		JButton btnClose = new JButton("Close Program");
 		btnClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
+				System.exit(0);
+				//setVisible(false);
 			}
 		});
 		btnClose.setBounds(498, 528, 118, 23);
@@ -236,11 +237,30 @@ public class UsersGUI extends JFrame {
 		JButton saveBoard = new JButton("Save Board");
 		saveBoard.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//TODO add saving board
+				Envirement.hist.saveCurrentBoard(Envirement.b);
 			}
 		});
 		saveBoard.setBounds(498, 311, 126, 23);
 		contentPane.add(saveBoard);
+		
+		JButton btnShow = new JButton("Show");
+		btnShow.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Envirement.b.showBoard();
+				Envirement.hist.actionForeward().showBoard();
+			}
+		});
+		btnShow.setBounds(498, 402, 89, 23);
+		contentPane.add(btnShow);
+		
+		JButton stepByStep = new JButton("See Prog Step \r\nBy Step");
+		stepByStep.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Envirement.hist.setTmpBoarc(Envirement.b);
+			}
+		});
+		stepByStep.setBounds(498, 345, 126, 23);
+		contentPane.add(stepByStep);
 		for (int i = 0; i < 10; i++) {
 			for (int j = 0; j < 10; j++) {
 				JLabel f1 = new JLabel();

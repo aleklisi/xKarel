@@ -1,4 +1,8 @@
-
+/**
+ *  helps to set comends in program checks spelling in code an dif actions taken by robot are possible
+ *  @author Aleksander Lisiecki
+ *
+ */
 public class Interpreter {
 	final static String[] possibleCommends = {"Run","Move", "Put", "Take", "Turnleft", "End","ShowBoard"};
 	final static String[] possibleConditions = { "IsNorth","IsWall","IsBrick", "NOTIsNorth","NOTIsWall","NOTIsBrick" };

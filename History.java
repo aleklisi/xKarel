@@ -1,67 +1,49 @@
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class History implements IHistory {
-
+public class History implements IHistory, Serializable {
+	private final String tmpPath = "./tmpBoard.ser";
+	private IBoard initialBoard;
+	private IBoard tmpBoard;
 	private int cuttentActionNumer = -1;
-	
-	private List<IBoard> actionStepByStep = new ArrayList<IBoard>();
+	private List<String> actionStepByStep = new ArrayList<String>();
 
 	@Override
-	public void saveBoard(IBoard b) {	
-		actionStepByStep.add(b);
-		cuttentActionNumer++;
-		for (IBoard board : actionStepByStep) {
-			board.showBoard();
-		}
+	public void saveCurrentBoard(IBoard board) {
+		serializeBoard(Envirement.b);
+		initialBoard = deserializeBoard(tmpPath);
+		tmpBoard = initialBoard;
+		// initialBoard.showBoard();
 	}
 
-	private boolean boardAviableUp() {
-		if (cuttentActionNumer + 1 >= actionStepByStep.size()) {
-			return false;
-		}
-		return true;
-	}
-
-	private boolean boardAviableDown() {
-		if (cuttentActionNumer - 1 < 0) {
-			return false;
-		}
-		return true;
+	@Override
+	public void saveAction(String actionName) {
+		actionStepByStep.add(actionName);
 	}
 
 	@Override
 	public IBoard actionForeward() {
-			System.out.println("Szo³ board");
-			for (IBoard board : actionStepByStep) {
-				board.showBoard();
-			}
-			System.out.println("End Szo³ board");
-		
-		if (boardAviableUp()) {
-			System.out.println("boardAviableUp()" + cuttentActionNumer);
-			return actionStepByStep.get(++cuttentActionNumer);
-		} else {
-			System.out.println("!boardAviableUp()" + cuttentActionNumer);
-			return actionStepByStep.get(cuttentActionNumer);
-		}
+
+		return initialBoard;
 	}
 
-	@Override
-	public IBoard actionBackward() {
-		if (boardAviableDown()) {
-			System.out.println("boardAviableDown()" + cuttentActionNumer);
-			return actionStepByStep.get(--cuttentActionNumer);
-		} else {
-			System.out.println("!boardAviableDown()" + cuttentActionNumer);
-			return actionStepByStep.get(cuttentActionNumer);
-		}
-	}
+	/*
+	 * @Override public IBoard actionBackward() { // TODO Auto-generated method
+	 * stub return null; }
+	 */
 
 	@Override
 	public void clearAllPreviousActions(IBoard currentBoard) {
+		initialBoard = currentBoard;
 		actionStepByStep.clear();
-		cuttentActionNumer = 0;
+
 	}
 
 	@Override
@@ -69,10 +51,46 @@ public class History implements IHistory {
 		return actionStepByStep.isEmpty();
 	}
 
+	private void serializeBoard(IBoard board) {
+		try {
+			FileOutputStream fileOut = new FileOutputStream(tmpPath);
+			ObjectOutputStream out = new ObjectOutputStream(fileOut);
+			out.writeObject(board);
+			out.close();
+			fileOut.close();
+			System.out.printf("Serialized data is saved in " + tmpPath);
+		} catch (IOException i) {
+			i.printStackTrace();
+		}
+	}
+
+	private IBoard deserializeBoard(String serializedBoardPath) {
+		IBoard result = null;
+		try {
+			FileInputStream fileIn = new FileInputStream(serializedBoardPath);
+			ObjectInputStream in = new ObjectInputStream(fileIn);
+			result = (IBoard) in.readObject();
+			in.close();
+			fileIn.close();
+		} catch (IOException i) {
+			i.printStackTrace();
+			return result;
+		} catch (ClassNotFoundException c) {
+			System.out.println("Employee class not found");
+			c.printStackTrace();
+			return result;
+		}
+		return result;
+	}
+
 	@Override
-	public void saveAction(String actionName) {
-		// TODO Auto-generated method stub
-		
+	public void setInitialBoarc(IBoard setBoard) {
+		initialBoard = setBoard;
+	}
+
+	@Override
+	public void setTmpBoarc(IBoard setBoard) {
+		tmpBoard = setBoard;
 	}
 
 }

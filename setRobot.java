@@ -94,7 +94,7 @@ public class setRobot extends JFrame {
 		btnNewButton.setBounds(10, 133, 204, 23);
 		contentPane.add(btnNewButton);
 
-		JButton btnNewButton_1 = new JButton("Close");
+		JButton btnNewButton_1 = new JButton("Close Window");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);

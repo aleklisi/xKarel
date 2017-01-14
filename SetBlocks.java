@@ -70,7 +70,7 @@ public class SetBlocks extends JFrame {
 		contentPane.add(textB);
 		textB.setColumns(10);
 
-		JButton Close = new JButton("Close");
+		JButton Close = new JButton("Close Window");
 		Close.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				setVisible(false);

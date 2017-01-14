@@ -64,7 +64,7 @@ public class ProgramCreator extends JFrame {
 		contentPane.add(programsName);
 		programsName.setColumns(10);
 
-		JButton create = new JButton("Create");
+		JButton create = new JButton("Create Program");
 		create.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (makeNewProgram()) {
@@ -74,16 +74,16 @@ public class ProgramCreator extends JFrame {
 				}
 			}
 		});
-		create.setBounds(54, 156, 89, 23);
+		create.setBounds(10, 156, 133, 23);
 		contentPane.add(create);
 		
-		JButton Close = new JButton("Close");
+		JButton Close = new JButton("Close Window");
 		Close.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
 			}
 		});
-		Close.setBounds(54, 190, 89, 23);
+		Close.setBounds(10, 190, 133, 23);
 		contentPane.add(Close);
 
 	}
