@@ -11,11 +11,9 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.List;
-
 import java.util.Vector;
 import java.awt.event.ActionEvent;
 import javax.swing.JList;
@@ -57,7 +55,6 @@ public class UsersGUI extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-
 		JButton btnHelp = new JButton("Help");
 		btnHelp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -106,8 +103,9 @@ public class UsersGUI extends JFrame {
 		JButton btnClose = new JButton("Close Program");
 		btnClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Envirement.hist.saveHist();
 				System.exit(0);
-				//setVisible(false);
+				// setVisible(false);
 			}
 		});
 		btnClose.setBounds(498, 528, 118, 23);
@@ -147,8 +145,11 @@ public class UsersGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (currentProgram != null) {
 					clearOutput();
+					Envirement.hist.setInitialBoarc(Envirement.b);
 					run(currentProgram.getName());
+					Envirement.hist.setFinalBoarc(Envirement.b);
 					refreshBoard();
+					Envirement.hist.saveHist();
 					// output.setText(answear());
 				}
 			}
@@ -175,7 +176,7 @@ public class UsersGUI extends JFrame {
 		});
 		setBlocks.setBounds(498, 39, 126, 23);
 		contentPane.add(setBlocks);
-		
+
 		JButton btnPut = new JButton("Put");
 		btnPut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -185,7 +186,7 @@ public class UsersGUI extends JFrame {
 		});
 		btnPut.setBounds(498, 73, 126, 23);
 		contentPane.add(btnPut);
-		
+
 		JButton btnMove = new JButton("Move");
 		btnMove.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -195,7 +196,7 @@ public class UsersGUI extends JFrame {
 		});
 		btnMove.setBounds(498, 107, 126, 23);
 		contentPane.add(btnMove);
-		
+
 		JButton btnTake = new JButton("Take");
 		btnTake.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -205,7 +206,7 @@ public class UsersGUI extends JFrame {
 		});
 		btnTake.setBounds(498, 141, 126, 23);
 		contentPane.add(btnTake);
-		
+
 		JButton btnTurnleft = new JButton("Turnleft");
 		btnTurnleft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -215,7 +216,7 @@ public class UsersGUI extends JFrame {
 		});
 		btnTurnleft.setBounds(498, 175, 126, 23);
 		contentPane.add(btnTurnleft);
-		
+
 		JButton btnRefreshBoard = new JButton("Refresh Board");
 		btnRefreshBoard.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -224,7 +225,7 @@ public class UsersGUI extends JFrame {
 		});
 		btnRefreshBoard.setBounds(498, 209, 126, 23);
 		contentPane.add(btnRefreshBoard);
-		
+
 		JButton btnSetRobot = new JButton("Set Robot");
 		btnSetRobot.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -233,7 +234,7 @@ public class UsersGUI extends JFrame {
 		});
 		btnSetRobot.setBounds(498, 277, 126, 23);
 		contentPane.add(btnSetRobot);
-		
+
 		JButton saveBoard = new JButton("Save Board");
 		saveBoard.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -242,21 +243,11 @@ public class UsersGUI extends JFrame {
 		});
 		saveBoard.setBounds(498, 311, 126, 23);
 		contentPane.add(saveBoard);
-		
-		JButton btnShow = new JButton("Show");
-		btnShow.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Envirement.b.showBoard();
-				Envirement.hist.actionForeward().showBoard();
-			}
-		});
-		btnShow.setBounds(498, 402, 89, 23);
-		contentPane.add(btnShow);
-		
+
 		JButton stepByStep = new JButton("See Prog Step \r\nBy Step");
 		stepByStep.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Envirement.hist.setTmpBoarc(Envirement.b);
+				TruckSteByStep.truck();
 			}
 		});
 		stepByStep.setBounds(498, 345, 126, 23);
@@ -271,10 +262,11 @@ public class UsersGUI extends JFrame {
 				f1.setVerticalAlignment(SwingConstants.CENTER);
 				contentPane.add(f1);
 				fieldsOfBoard[i][j] = f1;
-				
+
 			}
 		}
 		refreshBoard();
+		Envirement.hist.uploadHist();
 
 	}
 
@@ -295,9 +287,9 @@ public class UsersGUI extends JFrame {
 		for (int i = 0; i < 10; i++) {
 			for (int j = 0; j < 10; j++) {
 				fieldsOfBoard[i][j].setText(Envirement.b.getBoard()[i][j] + "");
-				if(i == Envirement.b.getCurrentPoz()[0] && j == Envirement.b.getCurrentPoz()[1]){
+				if (i == Envirement.b.getCurrentPoz()[0] && j == Envirement.b.getCurrentPoz()[1]) {
 					fieldsOfBoard[i][j].setBackground(Color.GRAY);
-				}else{
+				} else {
 					fieldsOfBoard[i][j].setBackground(Color.GREEN);
 				}
 			}
@@ -324,4 +316,5 @@ public class UsersGUI extends JFrame {
 	private String answear() {
 		return Envirement.consoleOutput;
 	}
+
 }

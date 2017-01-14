@@ -135,10 +135,6 @@ public class Compile extends JFrame {
 				}
 			}
 		});
-
-		
-		
-		
 	}
 
 	private Vector<File> getProgrames() {
@@ -154,12 +150,12 @@ public class Compile extends JFrame {
 		return directories;
 	}
 
-	boolean compile(String programName) {
+	private boolean compile(String programName) {
 		IProgram p = new Program(programName);
 		return p.compileProg();
 	}
 
-	void run(String programName) {
+	private void run(String programName) {
 		IProgram p = new Program(programName);
 		if (p.compileProg()) {
 			p.runProg();

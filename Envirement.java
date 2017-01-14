@@ -1,3 +1,8 @@
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.*;
 
 /**
@@ -49,8 +54,7 @@ public class Envirement {
 	 */
 
 	static void act(String functionName) {
-		// hist.saveAction(functionName);
-		// hist.saveBoard(b);
+		Envirement.hist.saveAction(functionName);
 		switch (functionName) {
 		case "Move":
 			b.Move();
@@ -116,6 +120,32 @@ public class Envirement {
 		}
 	}
 */
-
+	public static IBoard cp(IBoard copied){
+		IBoard b = null;
+		try {
+			
+	         FileOutputStream fileOut =   new FileOutputStream("./cp.ser");
+	         ObjectOutputStream out = new ObjectOutputStream(fileOut);
+	         out.writeObject(copied);
+	         out.close();
+	         fileOut.close();
+	         System.out.printf("Serialized data is saved in ./cp.ser");
+	      }catch(IOException i) {
+	         i.printStackTrace();
+	      }
+		try {
+	         FileInputStream fileIn = new FileInputStream("./cp.ser");
+	         ObjectInputStream in = new ObjectInputStream(fileIn);
+	         b = (IBoard) in.readObject();
+	         in.close();
+	         fileIn.close();
+	      }catch(IOException i) {
+	         i.printStackTrace();
+	      }catch(ClassNotFoundException c) {
+	         System.out.println("Employee class not found");
+	         c.printStackTrace();
+	      }
+		return b;
+	}
 
 }

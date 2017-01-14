@@ -94,7 +94,7 @@ public class SetBlocks extends JFrame {
 		contentPane.add(btnAdd);
 	}
 
-	boolean properInputData() {
+	private boolean properInputData() {
 		try {
 			//System.out.println(textX.getText() + "" + textY.getText() + "" + textB.getText());
 			Integer.parseInt(textX.getText());

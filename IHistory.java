@@ -18,7 +18,7 @@ public interface IHistory {
  * returns board after each move increemts move couter
  * @return board in next step
  */
-	IBoard actionForeward();
+	void actionForeward();
 
 	/* IBoard actionBackward(); */
 /**
@@ -40,6 +40,24 @@ public interface IHistory {
  * sets tmpBaord to setBoard
  * @param setBoard
  */
-	void setTmpBoarc(IBoard setBoard);
+	void setFinalBoarc(IBoard setBoard);
+	
+	void setCurrentBoard(IBoard setBoard);
+	
+	IBoard 	 getInitialBoard();
+	/**
+	 * sets tmpBaord to setBoard
+	 * @param setBoard
+	 */
+	IBoard getFinalBoard();
+		
+	IBoard getCurrentBoard();
+	
+	
+	void saveHist();
+	
+	void uploadHist();
+	
+	void restCouner();
 
 }
